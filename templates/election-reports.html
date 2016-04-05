@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+<script type="text/javascript" src="{% static 'js/jquery.pajinate.js' %}"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+				$('#paging_container').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 10,
+				});
+			});
+</script>
+<div class="container-fluid" style="padding-top: 75px;">
+	<div class="jumbotron">
+		<h2>Election Report Generator</h2>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<form action="/election-reports/" method="post">
+					{% csrf_token %}
+					<label >Filter by State</label>
+					{{ form.state |addcls:'required form-control' }}
+					{% if form.state.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.state.errors }}
+					</div>
+					{% endif %}
+					<label >Filter by District</label>
+					{{ form.district |addcls:'required form-control' }}
+					{% if form.district.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.district.errors }}
+					</div>
+					{% endif %}
+					<label >Filter by % of the popualtion that is African American</label>
+					{{ form.percentage_aa |addcls:'required form-control' }}
+					{% if form.percentage_aa.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.percentage_aa.errors }}
+					</div>
+					{% endif %}
+					<label >Filter by % of the popualtion that is Latino</label>
+					{{ form.percentage_latino |addcls:'required form-control' }}
+					{% if form.percentage_latino.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.percentage_latino.errors }}
+					</div>
+					{% endif %}
+					<label >Filter by 2012 Obama vote share</label>
+					{{ form.obama_share |addcls:'required form-control' }}
+					{% if form.obama_share.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.obama_share.errors }}
+					</div>
+					{% endif %}
+					<label >Election Year:</label>
+					{{ form.election_year |addcls:'required form-control' }}
+					{% if form.election_year.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.election_year.errors }}
+					</div>
+					{% endif %}
+					<div class="checkbox">
+						<label >
+						{{ form.challenger_only }}
+						Elections with Challengers only
+						</label>
+					</div>
+					{% if form.challenger_only.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.challenger_only.errors }}
+					</div>
+					{% endif %}
+					<div class="checkbox">
+						<label>
+							{{ form.no_challenger_only}}
+							Elections without Challengers only
+						</label>
+					</div>
+					{% if form.no_challenger_only.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.no_challenger_only.errors }}
+					</div>
+					{% endif %}
+					<div class="checkbox">
+						<label >
+							{{ form.includes_incumbent}} Elections with Incuments only
+						</label>
+					</div>
+					{% if form.includes_incumbent.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.includes_incumbent.errors }}
+					</div>
+					{% endif %}
+					<div class="checkbox">
+						<label >
+						{{ form.does_not_include_incumbent}}
+						Elections without Incuments only
+						</label>
+					</div>
+					{% if form.does_not_include_incumbent.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.does_not_include_incumbent.errors }}
+					</div>
+					{% endif %}
+					<label >Order By:</label>
+					{{ form.order_by |addcls:'required form-control' }}
+					{% if form.order_by.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.order_by.errors }}
+					</div>
+					{% endif %}
+					<br/>
+    			    <button class="btn btn-large btn-primary " name="submit" type="submit">Run Report</button>
+    			    <br/>
+    			    <br/>
+				</form>
+			</div>
+			<div class="col-md-9" id="paging_container">
+					<div class="panel-body">
+						<ul class="list-group">
+						  <li class="list-group-item active">
+						  	<strong>Election Report</strong>
+						    <span class="badge">Results</span>
+						  </li>
+						</ul>
+						<ul class="list-group content">
+						  {% for election in object_list %}
+						  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
+						  		<strong>{{ election.election_name}}</strong>
+							    <span >District: {{ election.district.district_short}} | State: {{election.state}} | Election Year: {{election.election_year}} | District General Election Date: {{election.district.general_election_date}} | Population: {{election.district.population}} | % African American: {{election.district.percent_aa}} | Candidates:  {% for candidate in election.candidate.all %}
+							    					{%if candidate.is_incumbent == 'Yes'%}<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , {% else %} {{candidate.first_name}} {{candidate.last_name}} , {% endif %}{% endfor %} 
+							   
+						  	</a>
+						  {% endfor %}
+						</ul>
+						<ul class="page_navigation pagination pagination-sm"></ul>
+					</div> 
+				</div>
+			</div>
+		</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+  <div class="jumbotron">
+      <form class="form-area" action="" method="post">
+        <h2>Contact Us</h2>
+      	{% csrf_token %}
+        <label >Username</label>
+        {{ form.username |addcls:'required form-control' }}
+        {% if form.username.errors %}
+        <br/>
+        <div class="alert alert-danger" role="alert">
+         {{ form.username.errors }}
+        </div>
+        {% endif %}
+        <label >Password</label>
+        {{ form.password |addcls:'required form-control' }}
+        {% if form.password.errors %}
+        <br/>
+        <div class="alert alert-danger" role="alert">
+         {{ form.password.errors }}
+        </div>
+        {% endif %}
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Sign in</button>
+        <small><a href="{% url 'recover-password' %}">Don't remember your password?</a><small> 
+      </form>
+      
+  </div> 
+</div>
+{% endblock %}

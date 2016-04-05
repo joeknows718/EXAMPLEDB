@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class='container' style="padding-top: 100px;">
+	<div class="jumbotron">	
+		<div class="row">
+			<h2>{{district.district_short}}, <a href="{% url 'state_detail' slug=district.state.slug %}">{{district.state}}</a></h2>
+			<div class="col-md-6">
+				<h3>District Profile</h3>
+				<br/>
+				<ul class="list-group">
+				  <li class="list-group-item"><strong>Population:</strong> {{district.population}}</li>
+				  <li class="list-group-item"><strong>African American:</strong> {{district.percent_aa}} %</li>
+				  <li class="list-group-item"><strong>Latino:</strong> {{district.percent_latino}} %</li>
+				  <li class="list-group-item"><strong>Obama Vote Share (2012):</strong> {{district.percent_obama}} %</li>
+				  <li class="list-group-item"><strong>Next Primary Election Date:</strong> {{district.primary_election_date}}</li>
+				  <li class="list-group-item"><strong>Next General Election Date:</strong> {{district.general_election_date}}</li>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<section id="google-map" class="gmap clearfix" style="height: 400px;"></section>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Counties in {{district.district_short}}</h4>
+				</div>
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						{% for county in district.counties.all %}
+							{{county.county_name}}
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3" >
+			<ul class="list-group">
+			  <li class="list-group-item active">
+			    <strong>Election History</strong>
+			  </li>
+			  {% if district.election_result %}
+			  <a href="{{ district.election_result}}"class="list-group-item">
+			  	<strong>Latest Election Result</strong>
+		  	  </a>
+		  	  {% endif %}
+		  	  {% for election in district.election.all|dictsortreversed:"election_year" %}
+			  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
+				    <strong>{{election}}</strong>
+			  	</a>
+			  {% endfor %}
+			</ul>
+		</div>
+		<div class="col-md-6">
+		{% if district.notes %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Additional Information</h4>
+				</div>
+				<div class="panel-body">
+					{{ district.notes }}
+				</div>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="{% static 'js/jquery.gmap.js' %}"></script>
+<script type="text/javascript">
+                            jQuery('#google-map').gMap({
+                                address: '{{district.district_short}} {{district.state}}',
+                                maptype: 'TERRAIN',
+                                zoom: 12,
+                                markers: [
+                                    {
+                                        address: "{{district.district_short}} {{district.state}}",
+                                    }
+                                ],
+                                doubleclickzoom: false,
+                                controls: {
+                                    panControl: true,
+                                    zoomControl: true,
+                                    mapTypeControl: true,
+                                    scaleControl: false,
+                                    streetViewControl: false,
+                                    overviewMapControl: false
+                                }
+                            });
+                        </script>
+{% endblock %}

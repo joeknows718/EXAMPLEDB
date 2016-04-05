@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class='container' style="padding-top: 100px;">
+	<div class="jumbotron">	
+		<div class="row">
+			<a href="{% url 'district_detail' slug=election.district.slug %}"><h2>{{election.election_name}}</a></h2>
+			<div class="col-md-6">
+				<h3>Election Profile</h3>
+				<br/>
+				<ul class="list-group">
+					<a class="list-group-item" href="{% url 'state_detail' slug=election.state.slug %}"><strong>State:</strong> {{election.state}}</a>
+					<a class="list-group-item" href="{% url 'district_detail' slug=election.district.slug %}"><strong>District:</strong> {{election.district}}</a>
+					{% for candidate in election.candidate.all %}
+							
+								{% if candidate.is_incumbent == 'Yes' %}
+								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>Incumbent:</strong> {{candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</a>
+								{% elif candidate.is_appointed == 'Yes' %}
+								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>Appointed:</strong> {{candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</a>
+								{% else %}
+								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>Challeneger:</strong> {{candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</a>
+								{% endif %}
+						
+					{% endfor %}
+					{% if election.election_result %}
+					<a class="list-group-item" href="{{election.election_result}}"><strong>Election Result</strong></a>
+					{% endif %}
+					<li class="list-group-item"><strong>Tier:</strong> {{election.tier}}</li>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<section id="google-map" class="gmap clearfix" style="height: 400px;"></section>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6" >
+			<ul class="list-group">
+			  <li class="list-group-item active">
+			    <strong>Related Elections</strong>
+			  </li>
+		  	  {% for election in election.district.election.all|dictsortreversed:"election_year" %}
+			  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
+				    <strong>{{election}}</strong>
+			  	</a>
+			  {% endfor %}
+			</ul>
+		</div>
+		<div class="col-md-6">
+		{% if election.notes %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Additional Information</h4>
+				</div>
+				<div class="panel-body">
+					{{ election.notes }}
+				</div>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="{% static 'js/jquery.gmap.js' %}"></script>
+<script type="text/javascript">
+    jQuery('#google-map').gMap({
+        address: '{{election.district.district_short}} {{election.district.state}}',
+        maptype: 'TERRAIN',
+        zoom: 12,
+        markers: [
+            {
+                address: "{{election.district.district_short}} {{election.district.state}}",
+            }
+        ],
+        doubleclickzoom: false,
+        controls: {
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+        }
+    });
+</script>
+
+
+{% endblock %}

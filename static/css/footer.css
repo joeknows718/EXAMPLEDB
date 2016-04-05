@@ -1,0 +1,20 @@
+.footer {
+  /*position: absolute;
+  bottom: 0;*/
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  color: #fff;
+  background-color: #222;
+  border-color: #080808;
+}
+
+.container-footer {
+  width: auto;
+  max-width: 680px;
+  padding: 15 15px;
+  padding-top: 10px; 
+}
+.container .text-muted {
+  margin: 20px auto;
+}

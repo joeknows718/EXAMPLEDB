@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class='container' style="padding-top: 100px;">
+	<div class="jumbotron">	
+		<div class="row">
+			<h2>{{candidate.first_name}} {{candidate.last_name}}</h2>
+			<div class="col-md-6">
+				<h3>Candidate Profile</h3>
+				<br/>
+				<ul class="list-group">
+					{% if candidate.election %}
+					<a class="list-group-item" href="{% url 'election_detail' slug=candidate.election.slug %}"><strong>Current Election:</strong> {{candidate.election.election_name}}</a>
+					{% endif %}
+					<li class="list-group-item"><strong>Party:</strong> {{candidate.party}}</li>
+					{% if candidate.is_incumbent %}
+					<li class="list-group-item"><strong>Title:</strong> {{candidate.election.district.job_title}}</li>
+					{% endif %}
+					{% if candidate.is_incumbent == 'Yes' %}
+					<a href="{% url 'district_detail' slug=candidate.election.district.slug %}" class="list-group-item"><strong>Current Position:</strong> Incumbent {{candidate.election.district.job_title}} {{candidate.election.district.district_short}} {{candidate.election.state.state_name}}</a>
+					{% elif candidate.is_appointed == 'Yes' %}
+					<a href="{% url 'district_detail' slug=candidate.election.district.slug %}" class="list-group-item"><strong>Current Position:</strong> Appointed {{candidate.election.district.job_title}} {{candidate.election.district.district_short}} {{candidate.election.state.state_name}}</a>
+					{% elif candidate.is_incumbent != 'Yes' and candidate.is_appointed != 'Yes' and candidate.running == 'Yes' %} 
+					<a href="{% url 'district_detail' slug=candidate.election.district.slug %}" class="list-group-item"><strong>Current Position:</strong> Running for {{candidate.election.district.job_title}} {{candidate.election.district.district_short}} {{candidate.election.state.state_name}}</a>
+					{% endif %}
+					<li class="list-group-item"><strong>Gender:</strong> {{candidate.gender}}</li>
+					<li class="list-group-item"><strong>Race:</strong> {{candidate.race}}</li>
+					{% if candidate.first_year_elected %}
+					<li class="list-group-item"><strong>First year elected:</strong> {{candidate.first_year_elected}}</li>
+					<li class="list-group-item"><strong>Last year elected:</strong> {{candidate.last_year_elected}}</li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<img {% if candidate.image %}src="{{candidate.image.url}}"{% else %}src="{% static 'images/placeholder.jpg' %}"{% endif %} alt="{{candidate.first_name}} {{candidate.lat_name}}" class="img-rounded">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3" >
+			<ul class="list-group">
+			{% if candidate.election.candidate.all|length > 1 %}
+				  <li class="list-group-item active">
+				    <strong>Opponents</strong>
+				  </li>
+				  {% for person in candidate.election.candidate.all %}
+					  {% if person.id != candidate.id %}
+					  <a href="{% url 'candidate_detail' slug=person.slug %}"class="list-group-item">
+					  	<strong>{{person.first_name}} {{person.last_name}} - {{person.party}}</strong>
+				  	  </a>
+					{% endif %}
+				  {% endfor %}
+			  {% else %}
+			   <li class="list-group-item active">
+			    <strong>Currently Unopposed</strong>
+			  </li>
+			  {% endif %}
+			</ul>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Related Elections</h4>
+				</div>
+				<div class="panel-body">
+					<ul class="list-unstyled">
+					{% for election in candidate.election.district.election.all %}
+						<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
+					  	<strong>{{election.election_name}}</strong>
+				  	  </a>
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+		{% if candidate.notes %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Additional Information</h4>
+				</div>
+				<div class="panel-body">
+					{{ candidate.notes }}
+				</div>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+</div> 
+
+{% endblock %}

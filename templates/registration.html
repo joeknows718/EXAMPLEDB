@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+  <div class="jumbotron">
+      <form class="form-area" action="" method="post">
+      	{% csrf_token %}
+      	 <h2 class="form-signin-heading">Register</h2>
+             <label>First Name</label>
+              {{ form.first_name |addcls:'required form-control' }}
+               {% if form.first_name.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+               {{ form.first_name.errors }}
+              </div>
+              {% endif %}
+              <label>Last Name</label>
+              {{ form.last_name |addcls:'required form-control' }}
+              {% if form.last_name.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+               {{ form.last_name.errors }}
+              </div>
+              {% endif %}
+              <label >Username</label>
+              {{ form.username |addcls:'required form-control' }}
+              {% if form.username.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+               {{ form.username.errors }}
+              </div>
+              {% endif %}
+              
+              <label >Organization</label>
+              {{ form.organization |addcls:'required form-control' }}
+              {% if form.organization.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+               {{ form.organization.errors }}
+              </div>
+              {% endif %}
+              <label>Email address</label>
+              {{ form.email |addcls:'required form-control' }}
+              {% if form.email.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+               {{ form.email.errors }}
+              </div>
+            {% endif %}
+              <label>Password</label>
+             {{ form.password1 |addcls:'required form-control' }}
+            {% if form.password1.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+               {{ form.password1.errors }}
+              </div>
+            {% endif %}
+               <label >Confirm Password</label>
+             {{ form.password2 |addcls:'required form-control' }}
+             {% if form.password2.errors %}
+              <br/>
+              <div class="alert alert-danger" role="alert">
+                {{ form.password2.errors }}
+              </div>
+            {% endif %}
+              <br/>
+        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

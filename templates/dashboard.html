@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+<script type="text/javascript" src="{% static 'js/jquery.pajinate.js' %}"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+				$('#paging_container1').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 5,
+				});
+				$('#paging_container2').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 5,
+				});
+				$('#paging_container3').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 5,
+				});
+				$('#paging_container4').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 5,
+				});
+				$('#paging_container5').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 5,
+				});
+			});
+</script>
+
+<div class="container-fluid" style="padding-top: 75px;">
+	<div class="jumbotron">
+		<h1 class="text-center">General Dashboard</h1>
+	</div>
+	<div class='container'>
+		<ul class="nav nav-pills nav-justified">
+			<li><a href="{% url 'district_reports' %}"><strong>District Report Generator</strong></a></li>
+			<li><a href="{% url 'election_reports' %}"><strong>Election Report Generator</strong></a></li>
+			<li><a href="{% url 'candidate_reports' %}"><strong>Candidate Report Generator</strong></a></li>
+		</ul>
+		<br/>
+	</div>
+	<div class='container'>
+		<div class='row'>
+			<div class="col-md-4" id="paging_container1">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>Districts with upcoming Elections</strong>
+					    <span class="badge">Results</span>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+					  {% for district in districts_upcoming %}
+					  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
+					  		<strong>{{district.district_id}}</strong>
+						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}}</span>
+					  	</a>
+					  {% endfor %}
+					</ul>
+					<ul class="page_navigation pagination pagination-sm"></ul>
+				</div> 
+			</div>
+			<div class="col-md-4" id="paging_container2">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>Districts with the largest % African American population</strong>
+					    <span class="badge">Results</span>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+					  {% for district in dist_by_aa %}
+					  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
+					  		<strong>{{district.district_id}}</strong>
+						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
+					  	</a>
+					  {% endfor %}
+					</ul>
+					<ul class="page_navigation pagination pagination-sm"></ul>
+				</div> 
+			</div>
+			<div class="col-md-4" id="paging_container3">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>Upcoming Elections</strong>
+					    <span class="badge">Results</span>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+					  {% for election in upcoming_elections %}
+					  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
+					  		<strong>{{election.election_name}}</strong>
+						    <span >Election Year: {{election.election_year}}State: {{election.state}} | General Election Date: {{election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}} | Candidates:  {% for candidate in election.candidate.all %}
+							    					{%if candidate.is_incumbent == 'Yes'%}<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , {% else %} {{candidate.first_name}} {{candidate.last_name}} , {% endif %}{% endfor %} </span>
+					  	</a>
+					  {% endfor %}
+					</ul>
+					<ul class="page_navigation pagination pagination-sm"></ul>
+				</div> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4" id="paging_container4">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>Candidates in Upcoming Elections</strong>
+					    <span class="badge">Results</span>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+					  {% for candidate in candidate_upcoming %}
+					  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
+					  		<strong>{{ candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</strong> Candidate Race: {{candidate.race}} | Candidate Gender: {{candidate.gender}}
+						    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
+					  	</a>
+					  {% endfor %}
+					</ul>
+					<ul class="page_navigation pagination pagination-sm"></ul>
+				</div> 
+			</div>
+			<div class="col-md-4" id="paging_container5">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>Candidates Running Unopposed in Upcoming Elections</strong>
+					    <span class="badge">Results</span>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+					  {% for candidate in candidate_unopposed %}
+					  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
+					  		<strong>{{ candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</strong> Candidate Race: {{candidate.race}} | Candidate Gender: {{candidate.gender}}
+						    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
+					  	</a>
+					  {% endfor %}
+					</ul>
+					<ul class="page_navigation pagination pagination-sm"></ul>
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

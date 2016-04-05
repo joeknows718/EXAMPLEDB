@@ -1,0 +1,15 @@
+boto==2.39.0
+diff-match-patch==20121119
+dj-database-url==0.4.0
+Django==1.8
+django-braces==1.8.1
+django-import-export==0.4.2
+django-postgrespool==0.3.0
+django-storages==1.1.8
+gunicorn==19.4.5
+Pillow==3.1.0
+psycopg2==2.6.1
+pytz==2016.2
+six==1.10.0
+SQLAlchemy==1.0.12
+tablib==0.10.0

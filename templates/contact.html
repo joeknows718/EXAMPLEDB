@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+  <div class="jumbotron">
+      <form class="form-area" action="" method="post">
+        <h2>Contact Us</h2>
+      	{% csrf_token %}
+        <label >Name</label>
+        {{ form.name |addcls:'required form-control' }}
+        {{ form.name.errors }}
+        <label >Email</label>
+        {{ form.email |addcls:'required form-control' }}
+        {{ form.email.errors }}
+        <label>Organization</label>
+        {{ form.organization |addcls:'required form-control' }}
+        {{ form.organization.errors }}
+        <label >Subject</label>
+        {{ form.subject |addcls:'required form-control' }}
+        {{ form.subject.errors }}
+        <label >Message</label>
+        {{ form.body |addcls:'required form-control' }}
+        {{ form.body.errors }}
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Sign in</button>
+      </form>  
+  </div> 
+</div>
+{% endblock %}
