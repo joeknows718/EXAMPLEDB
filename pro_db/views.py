@@ -58,15 +58,15 @@ class DashBoardView(LoginRequiredMixin, ApprovedMixin, View):
 		context['districts_upcoming'] = districts_upcoming.order_by(
 			'general_election_date')
 
-		context['dist_by_aa'] = districts_upcoming.order_by('-percent_aa')
+		context['dist_by_aa'] = districts_upcoming.order_by('-percent_aa')[:50]
 
-		context['upcoming_elections'] = Election.objects.filter(district__general_election_date__year=date.today().year).order_by('-district__general_election_date')
+		context['upcoming_elections'] = Election.objects.filter(district__general_election_date__year=date.today().year).order_by('-district__general_election_date')[:50]
 
 		context['candidate_upcoming'] = Candidate.objects.filter(election__district__general_election_date__gt=date.today()
-			).order_by('-election__district__general_election_date')
+			).order_by('-election__district__general_election_date')[:50]
 
 		context['candidate_unopposed'] = Candidate.objects.annotate(num_cand=Count('election__candidate')).filter(num_cand__lt=2
-			).order_by('-election__district__general_election_date')
+			).order_by('-election__district__general_election_date')[:50]
 
 			
 		return  render(request, self.template_name, context)
