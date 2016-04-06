@@ -74,7 +74,7 @@
 					  {% for district in dist_by_aa %}
 					  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
 					  		<strong>{{district.district_id}}</strong>
-						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
+						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}}</span>
 					  	</a>
 					  {% endfor %}
 					</ul>

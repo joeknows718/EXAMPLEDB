@@ -55,10 +55,10 @@ class DashBoardView(LoginRequiredMixin, ApprovedMixin, View):
 		districts_upcoming = District.objects.filter(
 			general_election_date__year=date.today().year)
 
-		context['districts_upcoming'] = districts_upcoming.order_by(
+		context['districts_upcoming'] = districts_upcoming.filter(general_election_date__gt=date.today()).order_by(
 			'general_election_date')
 
-		context['dist_by_aa'] = districts_upcoming.order_by('-percent_aa')[:50]
+		context['dist_by_aa'] = districts_upcoming.exclude(percent_aa=None).exclude(percent_aa=0.0)order_by('-percent_aa')[:50]
 
 		context['upcoming_elections'] = Election.objects.filter(district__general_election_date__year=date.today().year).order_by('-district__general_election_date')[:50]
 
