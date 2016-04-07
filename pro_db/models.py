@@ -124,8 +124,11 @@ class Candidate(models.Model):
 		unique_slugify(self, slug_str)
 		super(Candidate, self).save(**kwargs)
 
+	class Meta:
+		ordering = ['last_name']
+
 	def __unicode__(self):
-		return self.first_name + ' ' + self.last_name
+		return self.last_name + ' ' + self.first_name
 
 
 class County(models.Model):
@@ -134,6 +137,9 @@ class County(models.Model):
 	district = models.ForeignKey(District, related_name='counties')
 	state = models.ForeignKey(State, related_name='counties')
 	notes = models.TextField(blank=True)
+
+	class Meta:
+		ordering = ['fips_code']
 
 	def __unicode__(self):
 		return self.county_name
