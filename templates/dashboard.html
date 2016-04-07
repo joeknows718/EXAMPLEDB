@@ -93,7 +93,7 @@
 					  {% for election in upcoming_elections %}
 					  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
 					  		<strong>{{election.election_name}}</strong>
-						    <span >Election Year: {{election.election_year}}State: {{election.state}} | General Election Date: {{election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}} | Candidates:  {% for candidate in election.candidate.all %}
+						    <span >Election Year: {{election.election_year}} State: {{election.state}} | General Election Date: {{election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}} | Candidates:  {% for candidate in election.candidate.all %}
 							    					{%if candidate.is_incumbent == 'Yes'%}<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , {% else %} {{candidate.first_name}} {{candidate.last_name}} , {% endif %}{% endfor %} </span>
 					  	</a>
 					  {% endfor %}

@@ -141,9 +141,17 @@
 						  {% for election in object_list %}
 						  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
 						  		<strong>{{ election.election_name}}</strong>
-							    <span >District: {{ election.district.district_short}} | State: {{election.state}} | Election Year: {{election.election_year}} | District General Election Date: {{election.district.general_election_date}} | Population: {{election.district.population}} | % African American: {{election.district.percent_aa}} | Candidates:  {% for candidate in election.candidate.all %}
-							    					{%if candidate.is_incumbent == 'Yes'%}<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , {% else %} {{candidate.first_name}} {{candidate.last_name}} , {% endif %}{% endfor %} 
-							   
+							    <span >District: {{ election.district.district_short}} | State: {{election.state}} | Election Year: {{election.election_year}} | District General Election Date: {{election.district.general_election_date}} | Population: {{election.district.population}} | % African American: {{election.district.percent_aa}} 
+							    {% if election.candidate %}
+							    	| Candidates: 
+							     {% for candidate in election.candidate.all %}
+			    					{%if candidate.is_incumbent == 'Yes'%}
+			    						<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , 
+		    						{% else %} 
+		    							{{candidate.first_name}} {{candidate.last_name}} , 
+		    						{% endif %}
+	    						{% endfor %} 
+							   {% endif %}
 						  	</a>
 						  {% endfor %}
 						</ul>
