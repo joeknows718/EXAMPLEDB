@@ -47,7 +47,7 @@
 				  {% for person in candidate.election.candidate.all %}
 					  {% if person.id != candidate.id %}
 					  <a href="{% url 'candidate_detail' slug=person.slug %}"class="list-group-item">
-					  	<strong>{{person.first_name}} {{person.last_name}} - {{person.party}}</strong>
+					  	<strong>{{person.first_name}} {{person.last_name}} ({{person.party}})</strong>
 				  	  </a>
 					{% endif %}
 				  {% endfor %}

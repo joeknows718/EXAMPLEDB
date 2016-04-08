@@ -14,11 +14,11 @@
 					{% for candidate in election.candidate.all %}
 							
 								{% if candidate.is_incumbent == 'Yes' %}
-								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>Incumbent:</strong> {{candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</a>
+								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>{{candidate.first_name}} {{candidate.last_name}} (Incumbent) </strong> ({{candidate.party}})</a>
 								{% elif candidate.is_appointed == 'Yes' %}
-								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>Appointed:</strong> {{candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</a>
+								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}">{{candidate.first_name}} {{candidate.last_name}} (Appointed) ({{candidate.party}})</a>
 								{% else %}
-								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"><strong>Challeneger:</strong> {{candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</a>
+								<a class="list-group-item" href="{% url 'candidate_detail' slug=candidate.slug %}"> {{candidate.first_name}} {{candidate.last_name}} (Challeneger) ({{candidate.party}})</a>
 								{% endif %}
 						
 					{% endfor %}

@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load custom_filters %}
 {% load static %}
@@ -146,7 +147,7 @@
 						<ul class="list-group content">
 						  {% for candidate in object_list %}
 						  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
-						  		<strong>{{ candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</strong>
+						  		<strong>{{ candidate.first_name}} {{candidate.last_name}} ({{candidate.party}})</strong>
 							    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
 						  	</a>
 						  {% endfor %}
