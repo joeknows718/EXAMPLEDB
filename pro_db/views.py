@@ -62,7 +62,7 @@ class DashBoardView(LoginRequiredMixin, ApprovedMixin, View):
 
 		context['dist_by_aa'] = districts_upcoming.exclude(percent_aa=None).exclude(percent_aa=0.0).order_by('-percent_aa')[:50]
 
-		context['upcoming_elections'] = Election.objects.filter(election_year=date.today().year).order_by('-district__general_election_date')[:50]
+		context['upcoming_elections'] = Election.objects.filter(election_year=date.today().year).order_by('district__general_election_date')[:50]
 
 		context['candidate_upcoming'] = Candidate.objects.filter(election__district__general_election_date__gt=date.today()).order_by('election__district__general_election_date')[:50]
 
@@ -80,7 +80,7 @@ class DistrictReportGen(LoginRequiredMixin,
 						TemplateResponseMixin, 
 						View):
 
-	queryset = District.objects.all()
+	queryset = District.objects.filter(general_election_date__gt=date.today())
 	form_class = DistrictFilterForm
 	template_name = 'district-reports.html'
 
@@ -92,7 +92,7 @@ class DistrictReportGen(LoginRequiredMixin,
 			return self.form_valid(form)
 		else:
 			form_errors = form.errors
-			self.object_list = self.get_queryset().order_by('-general_election_date')
+			self.object_list = self.get_queryset().order_by('general_election_date')
 			return self.render_to_response(self.get_context_data(form=form, 
 																object_list=self.object_list,
 																form_errors=form_errors))
@@ -100,7 +100,7 @@ class DistrictReportGen(LoginRequiredMixin,
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
-		self.object_list = self.get_queryset().filter(general_election_date__gt=date.today()).order_by('-general_election_date')[:100]
+		self.object_list = self.get_queryset().order_by('general_election_date')[:100]
 		return self.render_to_response(self.get_context_data(form=form, object_list=self.object_list))
 
 
@@ -138,11 +138,11 @@ class DistrictReportGen(LoginRequiredMixin,
 		order_param = form.cleaned_data['order_by']
 
 		if order_param == None or order_param == 'Upcoming General Elections':
-			queryset = queryset.order_by('-general_election_date')
+			queryset = queryset.order_by('general_election_date')
 		elif order_param == 'Upcoming Primary Dates':
-			queryset = queryset.order_by('-primary_election_date')
+			queryset = queryset.order_by('primary_election_date')
 		elif order_param == 'Upcoming Filing Dates':
-			queryset = queryset.order_by('-next_filing_date')
+			queryset = queryset.order_by('next_filing_date')
 		elif order_param == 'Highest percent of African Americans':
 			queryset = queryset.order_by('-percent_aa')
 		elif order_param == 'Highest percent of Latinos':
