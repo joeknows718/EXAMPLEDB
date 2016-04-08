@@ -144,13 +144,13 @@ class DistrictReportGen(LoginRequiredMixin,
 		elif order_param == 'Upcoming Filing Dates':
 			queryset = queryset.filter(next_filing_date__gt=date.today()).order_by('next_filing_date')
 		elif order_param == 'Highest percent of African Americans':
-			queryset = queryset.order_by('-percent_aa')
+			queryset = queryset.exclude(percent_aa=None).order_by('-percent_aa')
 		elif order_param == 'Highest percent of Latinos':
-			queryset = queryset.order_by('-percent_latino')
+			queryset = queryset.exclude(percent_latino=None).order_by('-percent_latino')
 		elif order_param == 'Population size (High to Low)':
-			queryset = queryset.order_by('-population')
+			queryset = queryset.exclude(population=None).order_by('-population')
 		elif order_param == 'Population size (Low to High)':
-			queryset = queryset.order_by('population')
+			queryset = queryset.exclude(population=None).order_by('population')
 		else:
 			queryset = queryset.order_by('-percent_obama')
 
@@ -280,13 +280,13 @@ class ElectionReportGen(LoginRequiredMixin,
 		elif order_param == 'Upcoming Filing Dates':
 			queryset = queryset.filter(district__next_filing_date__gt=date.today()).order_by('district__next_filing_date')
 		elif order_param == 'Highest percent of African Americans':
-			queryset = queryset.order_by('-district__percent_aa')
+			queryset = queryset.exclude(district__percent_aa=None).order_by('-district__percent_aa')
 		elif order_param == 'Highest percent of Latinos':
-			queryset = queryset.order_by('-district__percent_latino')
+			queryset = queryset.exclude(district__percent_latino=None).order_by('-district__percent_latino')
 		elif order_param == 'Population size (High to Low)':
-			queryset = queryset.order_by('-district__population')
+			queryset = queryset.exclude(district__population=None).order_by('-district__population')
 		elif order_param == 'Population size (Low to High)':
-			queryset = queryset.order_by('district__population')
+			queryset = queryset.exclude(district__population=None).order_by('district__population')
 		else:
 			queryset = queryset.order_by('-district__percent_obama')
 
@@ -425,13 +425,13 @@ class CandidateReportGen(LoginRequiredMixin,
 		elif order_param == 'Upcoming Filing Dates':
 			queryset = queryset.filter(election__district__next_filing_date__gt=date.today()).order_by('election__district__next_filing_date')
 		elif order_param == 'Highest percent of African Americans':
-			queryset = queryset.order_by('-election__district__percent_aa')
+			queryset = queryset.exclude(election__district__percent_aa=None).order_by('-election__district__percent_aa')
 		elif order_param == 'Highest percent of Latinos':
-			queryset = queryset.order_by('-election__district__percent_latino')
+			queryset = queryset.exclude(election__district__percent_latino=None).order_by('-election__district__percent_latino')
 		elif order_param == 'Population size (High to Low)':
-			queryset = queryset.order_by('-election__district__population')
+			queryset = queryset.exclude(election__district__population=None).order_by('-election__district__population')
 		elif order_param == 'Population size (Low to High)':
-			queryset = queryset.order_by('election__district__population')
+			queryset = queryset.exclude(election__district__population=None).order_by('election__district__population')
 		else:
 			queryset = queryset.order_by('-election__district__percent_obama')
 
