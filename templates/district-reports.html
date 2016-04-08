@@ -75,7 +75,7 @@
 						<ul class="list-group content">
 						  {% for district in object_list %}
 						  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
-							    <span class="badge">DISTICT: {{district.district_short}} | State: {{district.state}} | General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}} | % Latino: {{district.percent_latino}}</span>
+							    <span class="badge">{{district.district_short}} |  {{district.state}} | General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}} | % Latino: {{district.percent_latino}}</span>
 							    <strong>{{ district.district_id}}</strong>
 						  	</a>
 						  {% endfor %}

@@ -16,6 +16,8 @@ from models import State, Candidate, Party, Election, District, County
 from datetime import date
 from django.db.models import Count
 from django.db.models import Q
+
+
 # Create your views here.
 
 #|------------------------Landing / Customer Service  Pages------------------------------------------|
