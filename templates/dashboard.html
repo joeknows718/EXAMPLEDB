@@ -62,25 +62,26 @@
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
-			<div class="col-md-4" id="paging_container2">
+			<div class="col-md-4" id="paging_container4">
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>Districts with the largest % African American population</strong>
+					  	<strong>Candidates in Upcoming Elections</strong>
 					    <span class="badge">Results</span>
 					  </li>
 					</ul>
 					<ul class="list-group content">
-					  {% for district in dist_by_aa %}
-					  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
-					  		<strong>{{district.district_id}}</strong>
-						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}}</span>
+					  {% for candidate in candidate_upcoming %}
+					  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
+					  		<strong>{{ candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</strong> Candidate Race: {{candidate.race}} | Candidate Gender: {{candidate.gender}}
+						    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
 					  	</a>
 					  {% endfor %}
 					</ul>
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
+		
 			<div class="col-md-4" id="paging_container3">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -103,19 +104,19 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4" id="paging_container4">
+			<div class="col-md-4" id="paging_container2">
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>Candidates in Upcoming Elections</strong>
+					  	<strong>Districts with the largest % African American population</strong>
 					    <span class="badge">Results</span>
 					  </li>
 					</ul>
 					<ul class="list-group content">
-					  {% for candidate in candidate_upcoming %}
-					  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
-					  		<strong>{{ candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</strong> Candidate Race: {{candidate.race}} | Candidate Gender: {{candidate.gender}}
-						    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
+					  {% for district in dist_by_aa %}
+					  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
+					  		<strong>{{district.district_id}}</strong>
+						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}}</span>
 					  	</a>
 					  {% endfor %}
 					</ul>
