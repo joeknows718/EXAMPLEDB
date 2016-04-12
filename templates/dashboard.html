@@ -122,25 +122,6 @@
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
-			<div class="col-md-4" id="paging_container5">
-				<div class="panel-body">
-					<ul class="list-group">
-					  <li class="list-group-item active">
-					  	<strong>Candidates Running Unopposed in Upcoming Elections</strong>
-					    <span class="badge">Results</span>
-					  </li>
-					</ul>
-					<ul class="list-group content">
-					  {% for candidate in candidate_unopposed %}
-					  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
-					  		<strong>{{ candidate.first_name}} {{candidate.last_name}} - {{candidate.party}}</strong> Candidate Race: {{candidate.race}} | Candidate Gender: {{candidate.gender}}
-						    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
-					  	</a>
-					  {% endfor %}
-					</ul>
-					<ul class="page_navigation pagination pagination-sm"></ul>
-				</div> 
-			</div>
 		</div>
 	</div>
 </div>
