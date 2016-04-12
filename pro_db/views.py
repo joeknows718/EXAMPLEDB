@@ -64,7 +64,9 @@ class DashBoardView(LoginRequiredMixin, ApprovedMixin, View):
 
 		context['upcoming_elections'] = Election.objects.filter(election_year=date.today().year).order_by('district__general_election_date')[:50]
 
-		context['candidate_upcoming'] = Candidate.objects.filter(election__district__general_election_date__gt=date.today()).order_by('election__district__general_election_date')[:50]
+		#context['candidate_upcoming'] = Candidate.objects.filter(election__district__general_election_date__gt=date.today()).order_by('election__district__general_election_date')[:50]
+
+		context['states_upcoming'] = State.objects.all().annotate().order_by('district__general_election_date').distinct()
 
 		context['candidate_unopposed'] = Candidate.objects.annotate(num_cand=Count('election__candidate')).filter(num_cand__lt=2
 			).filter(election__district__general_election_date__gt=date.today()).order_by('election__district__general_election_date')[:50]
