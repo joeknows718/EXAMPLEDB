@@ -199,7 +199,7 @@ class CandidateFilterForm(forms.Form):
 	percentage_aa = forms.IntegerField(min_value=0, max_value=100, required=False)
 	percentage_latino = forms.IntegerField(min_value=0, max_value=100, required=False)
 	obama_share = forms.IntegerField(min_value=0, max_value=100, required=False)
-	is_incument = forms.BooleanField(required=False)
+	is_incumbent = forms.BooleanField(required=False)
 	not_incumbent = forms.BooleanField(required=False)
 	won_primary = forms.BooleanField(required=False)
 	opposed_only = forms.BooleanField(required=False)

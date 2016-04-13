@@ -19,7 +19,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<form action="/election-reports/" method="post">
+			<form action="/candidate-reports/" method="post">
 					{% csrf_token %}
 					<label >Filter by State</label>
 					{{ form.state |addcls:'required form-control' }}
@@ -101,19 +101,19 @@
 					{% endif %}
 					<div class="checkbox">
 						<label >
-							{{ form.is_incument}} Incuments Candidates only
+							{{ form.is_incumbent}} Incumbent Candidates only
 						</label>
 					</div>
-					{% if form.is_incument.errors %}
+					{% if form.is_incumbent.errors %}
 					<br/>
 					<div class="alert alert-danger" role="alert">
-					 {{ form.is_incument.errors }}
+					 {{ form.is_incumbent.errors }}
 					</div>
 					{% endif %}
 					<div class="checkbox">
 						<label >
 						{{ form.not_incumbent}}
-						Non Incuments only
+						Non Incumbents only
 						</label>
 					</div>
 					{% if form.not_incumbent.errors %}

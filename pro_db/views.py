@@ -236,14 +236,14 @@ class ElectionReportGen(LoginRequiredMixin,
 		challenger_param = form.cleaned_data['challenger_only']
 
 		if challenger_param == True:
-			queryset = queryset.annotate(num_cand=Count('candidate')).filter(num_cand__gt=1)
+			queryset = queryset.exclude(candidate=None).annotate(num_cand=Count('candidate')).filter(num_cand__gt=1)
 		else:
 			pass
 
 		no_challenger_param = form.cleaned_data['no_challenger_only']
 
 		if no_challenger_param == True:
-			queryset = queryset.annotate(num_cand=Count('candidate')).filter(num_cand__lt=2)
+			queryset = queryset.exclude(candidate=None).annotate(num_cand=Count('candidate')).filter(num_cand__lt=2)
 		else:
 			pass
 
@@ -256,14 +256,14 @@ class ElectionReportGen(LoginRequiredMixin,
 		incumbent_only_param = form.cleaned_data['includes_incumbent']
 
 		if incumbent_only_param == True:
-			queryset = queryset.filter(candidate__is_incumbent='Yes').distinct()
+			queryset = queryset.exclude(candidate=None).filter(candidate__is_incumbent='Yes').distinct()
 		else:
 			pass
 
-		no_incument_param = form.cleaned_data['does_not_include_incumbent']
+		no_incumbent_param = form.cleaned_data['does_not_include_incumbent']
 
-		if no_incument_param == True:
-			queryset = queryset.filter(~Q(candidate__is_incumbent='Yes')).distinct()
+		if no_incumbent_param == True:
+			queryset = queryset.exclude(candidate=None).filter(~Q(candidate__is_incumbent='Yes')).distinct()
 
 
 		year_param = form.cleaned_data['election_year']
@@ -305,7 +305,7 @@ class ElectionReportGen(LoginRequiredMixin,
 										challenger_param=challenger_param,
 										no_challenger_param=no_challenger_param,
 										incumbent_only_param=incumbent_only_param,
-										no_incument_param=no_incument_param,
+										no_incumbent_param=no_incumbent_param,
 										election_year_param=election_year_param)
 
 		return self.render_to_response(context)
@@ -341,12 +341,14 @@ class CandidateReportGen(LoginRequiredMixin,
 
 	def form_valid(self, form):
 		queryset = self.get_queryset()
+
 		state_param = form.cleaned_data['state']
 
 		if state_param == 'All States' or  state_param == None:
 			pass
 		else:
 			queryset = queryset.filter(election__state__state_name=state_param)
+
 
 		district_param = form.cleaned_data['district']
 
@@ -376,12 +378,13 @@ class CandidateReportGen(LoginRequiredMixin,
 		else:
 			queryset = queryset.filter(election__district__percent_obama__gte=obama_param)
 
-		is_incument_param = form.cleaned_data['is_incumbent']
+		is_incumbent_param = form.cleaned_data['is_incumbent']
 
 		if is_incumbent_param == True:
-			queryset = queryset.filter(is_incument='Yes')
+			queryset = queryset.filter(is_incumbent='Yes')
 		else:
 			pass
+
 		won_primary_param = form.cleaned_data['won_primary']
 
 		if won_primary_param == True:
@@ -389,30 +392,28 @@ class CandidateReportGen(LoginRequiredMixin,
 		else:
 			pass
 
-		no_incument_param = form.cleaned_data['not_incumbent']
+		no_incumbent_param = form.cleaned_data['not_incumbent']
 
-		if no_incument_param == True:
-			queryset = queryset.filter(Q(is_incument='No') | Q(is_incument='Not Sure'))
+		if no_incumbent_param == True:
+			queryset = queryset.filter(Q(is_incumbent='No') | Q(is_incumbent='Not Sure'))
 		else:
 			pass
-
 		opposed_param = form.cleaned_data['opposed_only']
-
 		if opposed_param == True:
-			queryset = queryset.annotate(num_cand=Count('election_candidate')).filter(num_cand__gt=1)
+			queryset = queryset.annotate(num_cand=Count('election__candidate')).filter(num_cand__gt=1)
 		else:
 			pass
 
 		unopposed_param = form.cleaned_data['unopposed_only']
 
 		if unopposed_param == True:
-			queryset = queryset.annotate(num_cand=Count('election_candidate')).filter(num_cand__gt=1)
+			queryset = queryset.annotate(num_cand=Count('election__candidate')).filter(num_cand__gt=1)
 		else:
 			pass
 
 		year_param = form.cleaned_data['election_year']
 
-		if year_param != None:
+		if year_param == None:
 			pass
 		else:
 			queryset = queryset.filter(election__election_year=year_param)
@@ -449,7 +450,7 @@ class CandidateReportGen(LoginRequiredMixin,
 										obama_param=obama_param,
 										order_param=order_param,
 										is_incumbent_param=is_incumbent_param,
-										no_incument_param=no_incument_param,
+										no_incumbent_param=no_incumbent_param,
 										opposed_param=opposed_param,
 										unopposed_param=unopposed_param)
 
