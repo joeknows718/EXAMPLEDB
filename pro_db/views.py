@@ -82,7 +82,7 @@ class DistrictReportGen(LoginRequiredMixin,
 						TemplateResponseMixin, 
 						View):
 
-	queryset = District.objects.all()
+	queryset = District.objects.filter(general_election_date__gt=date.today())
 	form_class = DistrictFilterForm
 	template_name = 'district-reports.html'
 
@@ -94,7 +94,7 @@ class DistrictReportGen(LoginRequiredMixin,
 			return self.form_valid(form)
 		else:
 			form_errors = form.errors
-			self.object_list = self.get_queryset().filter(general_election_date__gt=date.today()).order_by('general_election_date')
+			self.object_list = self.get_queryset().order_by('general_election_date')
 			return self.render_to_response(self.get_context_data(form=form, 
 																object_list=self.object_list,
 																form_errors=form_errors))
@@ -102,7 +102,7 @@ class DistrictReportGen(LoginRequiredMixin,
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
-		self.object_list = self.get_queryset().filter(general_election_date__gt=date.today()).order_by('general_election_date')[:100]
+		self.object_list = self.get_queryset().order_by('general_election_date')[:100]
 		return self.render_to_response(self.get_context_data(form=form, object_list=self.object_list))
 
 
@@ -174,7 +174,7 @@ class ElectionReportGen(LoginRequiredMixin,
 						MultipleObjectMixin,
 						TemplateResponseMixin,
 						View):
-	queryset = Election.objects.all()
+	queryset = Election.objects.filter(district__general_election_date__gte=date.today())
 	form_class = ElectionFilterForm
 	template_name = 'election-reports.html'
 
@@ -185,14 +185,14 @@ class ElectionReportGen(LoginRequiredMixin,
 			return self.form_valid(form)
 		else:
 			form_errors = form.errors
-			self.object_list = self.get_queryset().filter(election_year__gte=date.today().year).order_by('-general_election_date')
+			self.object_list = self.get_queryset().order_by('-general_election_date')
 			return self.render_to_response(self.get_context_data(form=form, 
 																object_list=self.object_list,
 																form_errors=form_errors))
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
-		self.object_list = self.get_queryset().filter(election_year__gte=date.today().year).order_by('district__general_election_date')[:100]
+		self.object_list = self.get_queryset().order_by('district__general_election_date')[:100]
 		return self.render_to_response(self.get_context_data(form=form, object_list=self.object_list))
 
 	def form_valid(self, form):
@@ -317,7 +317,7 @@ class CandidateReportGen(LoginRequiredMixin,
 						TemplateResponseMixin,
 						View):
 
-	queryset = Candidate.objects.all()
+	queryset = Candidate.objects.filter(election__district__general_election_date__gt=date.today())
 	form_class = CandidateFilterForm
 	template_name = 'candidate-reports.html'
 
@@ -328,7 +328,7 @@ class CandidateReportGen(LoginRequiredMixin,
 			return self.form_valid(form)
 		else:
 			form_errors = form.errors
-			self.object_list = self.get_queryset().filter(election__district__general_election_date__gt=date.today()).order_by('-election__district__general_election_date')[:100]
+			self.object_list = self.get_queryset().order_by('-election__district__general_election_date')[:100]
 			return self.render_to_response(self.get_context_data(form=form, 
 																object_list=self.object_list,
 																form_errors=form_errors))
@@ -336,7 +336,7 @@ class CandidateReportGen(LoginRequiredMixin,
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
-		self.object_list = self.get_queryset().filter(election__district__general_election_date__gt=date.today()).order_by('-election__district__general_election_date')[:100]
+		self.object_list = self.get_queryset().order_by('-election__district__general_election_date')[:100]
 		return self.render_to_response(self.get_context_data(form=form, object_list=self.object_list))
 
 	def form_valid(self, form):
@@ -417,7 +417,6 @@ class CandidateReportGen(LoginRequiredMixin,
 			pass
 		else:
 			queryset = queryset.filter(election__election_year=year_param)
-
 
 		order_param = form.cleaned_data['order_by']
 
