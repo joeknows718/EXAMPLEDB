@@ -1,28 +1,53 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 {% block content %}
+<style type="text/css">
+.textarea.form-control{
+  height: 100px;
+}
+</style>
 <div class="container" style="padding-top: 100px;">
   <div class="jumbotron">
-      <form class="form-area" action="" method="post">
-        <h2>Contact Us</h2>
+      <form  action="" method="post">
+        <h2>Error Report</h2>
+        <p>We appreciate your help</p>
       	{% csrf_token %}
-        <label >Name</label>
-        {{ form.name |addcls:'required form-control' }}
-        {{ form.name.errors }}
-        <label >Email</label>
-        {{ form.email |addcls:'required form-control' }}
-        {{ form.email.errors }}
+        <div class="row">
+          <div class="col-md-6">
+          <label >Name</label>
+          {{ form.name |addcls:'required form-control' }}
+          {{ form.name.errors }}
+          </div>
+           <div class="col-md-6">
+          <label >Email</label>
+          {{ form.email |addcls:'required form-control' }}
+          {{ form.email.errors }}
+          </div>
+        </div>
+        <div class="row">
+           <div class="col-md-6">
         <label>Organization</label>
-        {{ form.organization |addcls:'required form-control' }}
-        {{ form.organization.errors }}
-        <label >Subject</label>
-        {{ form.subject |addcls:'required form-control' }}
-        {{ form.subject.errors }}
-        <label >Message</label>
-        {{ form.body |addcls:'required form-control' }}
-        {{ form.body.errors }}
+        
+          {{ form.organization |addcls:'required form-control' }}
+          {{ form.organization.errors }}
+        </div>
+         <div class="col-md-6">
+          <label >Issue Area</label>
+          {{ form.area |addcls:'required form-control' }}
+          {{ form.area.errors }}
+        </div>
+        </div>
+        <label >Page Affected</label>
+        {{ form.page |addcls:'required form-control' }}
+        {{ form.page.errors }}
+        <label >Please describe the issue:</label>
+        {{ form.issue |addcls:'required form-control text' }}
+        {{ form.issue.errors }}
+        <label >Additional Comments</label>
+        {{ form.comments |addcls:'required form-control text' }}
+        {{ form.comments.errors }}
         <br/>
-        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary" name="submit" type="submit">Send Error Report</button>
       </form>  
   </div> 
 </div>

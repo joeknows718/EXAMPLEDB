@@ -6,31 +6,43 @@ from models import District, Candidate, Election, State
 
 from django.utils.crypto import get_random_string
 
+ISSUE_CHOICES = (('District', 'District'),
+				('Elections', 'Elections'),
+				('Candidates', 'Candidates'))
+
 class ContactForm(forms.Form):
 	name = forms.CharField(required=True)
 	email = forms.CharField(widget=forms.EmailInput(), required=True)
 	organization = forms.CharField(required=False)
-	subject = forms.CharField(required=True)
-	body = forms.CharField(widget=forms.Textarea(), required=True)
+	issue = forms.CharField(widget=forms.Textarea(), required=True)
+	page = forms.CharField(required=False)
+	area = forms.ChoiceField(choices=ISSUE_CHOICES, required=True)
+	comments = forms.CharField(widget=forms.Textarea(), required=False)
 
 	def send_message(self):
 		name = self.cleaned_data['name']
 		email = self.cleaned_data['email']
 		organization = self.cleaned_data['organization']
-		subject = self.cleaned_data['subject']
-		body = self.cleaned_data['body']
+		issue = self.cleaned_data['issue']
+		comments = self.cleaned_data['comments']
+		page = self.cleaned_data['page']
+		area = self.cleaned_data['area']
 		message = '''
 			New Message from {name} @ {email}
 			Organization: {organization}
-			RE: {subject}
-			Message: {body}
+			Issue Area: {area}
+			Page: {page}
+			Issue Description: {issue}
+			Comments: {comments}
 		'''.format(name=name,
 			email=email,
 			organization=organization,
-			subject=subject,
-			body=body)
+			area=area,
+			page=page,
+			issue=issue,
+			comments=comments)
 		send_mail('NEW CONTACT FORM SUBMISSION',
-			body,
+			message,
 			'prosecutordb@colorofchange.org',
 			['prosecutordb@colorofchange.org', 'joe.carrano@colorofchange.org'])
 
