@@ -185,7 +185,7 @@ class ElectionReportGen(LoginRequiredMixin,
 			return self.form_valid(form)
 		else:
 			form_errors = form.errors
-			self.object_list = self.get_queryset().order_by('-general_election_date')
+			self.object_list = self.get_queryset().order_by('general_election_date')
 			return self.render_to_response(self.get_context_data(form=form, 
 																object_list=self.object_list,
 																form_errors=form_errors))
@@ -328,7 +328,7 @@ class CandidateReportGen(LoginRequiredMixin,
 			return self.form_valid(form)
 		else:
 			form_errors = form.errors
-			self.object_list = self.get_queryset().order_by('-election__district__general_election_date')[:100]
+			self.object_list = self.get_queryset().order_by('election__district__general_election_date')[:100]
 			return self.render_to_response(self.get_context_data(form=form, 
 																object_list=self.object_list,
 																form_errors=form_errors))
@@ -336,7 +336,7 @@ class CandidateReportGen(LoginRequiredMixin,
 	def get(self, request, *args, **kwargs):
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
-		self.object_list = self.get_queryset().order_by('-election__district__general_election_date')[:100]
+		self.object_list = self.get_queryset().order_by('election__district__general_election_date')[:100]
 		return self.render_to_response(self.get_context_data(form=form, object_list=self.object_list))
 
 	def form_valid(self, form):
