@@ -1,6 +1,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block content %}
 <script type="text/javascript" src="{% static 'js/jquery.pajinate.js' %}"></script>
 <script type="text/javascript">
@@ -51,7 +52,7 @@
 				  </li>
 				</ul>
 				<ul class="list-group content">
-				  {% for district in state.district.all %}
+				  {% for district in state.district.all|sort_by:'district_short' %}
 				  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
 					    <span class="badge">{{district.general_election_date}}</span>
 					    <strong>{{ district.district_short}}</strong>

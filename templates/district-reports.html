@@ -28,7 +28,23 @@
 					 {{ form.state.errors }}
 					</div>
 					{% endif %}
-					<label >Filter by % of the popualtion that is African American</label>
+					<label >Filter by for districts with populations greater than:</label>
+					{{ form.pop_gt |addcls:'required form-control' }}
+					{% if form.pop_gt.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.pop_gt.errors }}
+					</div>
+					{% endif %}
+					<label >Filter by for districts with populations less than:</label>
+					{{ form.pop_lt |addcls:'required form-control' }}
+					{% if form.pop_lt.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.pop_lt.errors }}
+					</div>
+					{% endif %}
+					<label >Filter by % of the population that is African American</label>
 					{{ form.percentage_aa |addcls:'required form-control' }}
 					{% if form.percentage_aa.errors %}
 					<br/>
@@ -36,7 +52,7 @@
 					 {{ form.percentage_aa.errors }}
 					</div>
 					{% endif %}
-					<label >Filter by % of the popualtion that is Latino</label>
+					<label >Filter by % of the population that is Latino</label>
 					{{ form.percentage_latino |addcls:'required form-control' }}
 					{% if form.percentage_latino.errors %}
 					<br/>

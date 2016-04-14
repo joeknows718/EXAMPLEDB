@@ -99,13 +99,13 @@ class RegisterForm(UserCreationForm):
 
 		body = """Hey {first_name},
 
-		Thanks for registering for <APPLICATION NAME>! Your request for access has been recieved.
-		Please allow for up to 48 Hours for you access to be granted. If you have any questions please reach 
-		to us at admin_email@domain.com.
+		Thanks for registering for the Prosecutor Accountability Database powered by ColorOfChange! Your request for access has been received.
+
+		Please allow for up to 2 business days for your access to be granted. If you have any questions, please reach out to us at prosecutordb@colorofchange.org
 
 		Best,
 
-		The APP NAME team. """.format(first_name=first_name)
+		The ColorOfChange team. """.format(first_name=first_name)
 		send_mail('Thanks for registering with the Prosecutor Database',
 			body,
 			'prosecutordb@colorofchange.org',
@@ -121,7 +121,7 @@ class PasswordRecoveryForm(forms.Form):
 
 	def clean_email(self):
 		try:
-			return User.objects.get(email=self.clean_email['email'])
+			return User.objects.get(email=self.cleaned_data['email'])
 		except User.DoesNotExist:
 			raise forms.ValidationError("Can't find user based on the email")
 		return self.cleaned_data['email']
@@ -171,6 +171,8 @@ class DistrictFilterForm(forms.Form):
 	order_by =  forms.ChoiceField(choices=ORDER_CHOICES, required=False)
 	percentage_aa = forms.IntegerField(min_value=0, max_value=100, required=False)
 	percentage_latino = forms.IntegerField(min_value=0, max_value=100, required=False)
+	pop_gt = forms.IntegerField(min_value=0, required=False)
+	pop_lt = forms.IntegerField(min_value=0, required=False)
 	obama_share = forms.IntegerField(min_value=0, max_value=100, required=False)
 
 
@@ -187,6 +189,8 @@ class ElectionFilterForm(forms.Form):
 	order_by =  forms.ChoiceField(choices=ORDER_CHOICES, required=False)
 	percentage_aa = forms.IntegerField(min_value=0, max_value=100, required=False)
 	percentage_latino = forms.IntegerField(min_value=0, max_value=100, required=False)
+	pop_gt = forms.IntegerField(min_value=0, required=False)
+	pop_lt = forms.IntegerField(min_value=0, required=False)
 	obama_share = forms.IntegerField(min_value=0, max_value=100, required=False)
 	challenger_only = forms.BooleanField(required=False)
 	no_challenger_only = forms.BooleanField(required=False)
@@ -210,6 +214,8 @@ class CandidateFilterForm(forms.Form):
 	order_by =  forms.ChoiceField(choices=ORDER_CHOICES, required=False)
 	percentage_aa = forms.IntegerField(min_value=0, max_value=100, required=False)
 	percentage_latino = forms.IntegerField(min_value=0, max_value=100, required=False)
+	pop_gt = forms.IntegerField(min_value=0, required=False)
+	pop_lt = forms.IntegerField(min_value=0, required=False)
 	obama_share = forms.IntegerField(min_value=0, max_value=100, required=False)
 	is_incumbent = forms.BooleanField(required=False)
 	not_incumbent = forms.BooleanField(required=False)
