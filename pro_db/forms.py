@@ -163,7 +163,7 @@ ORDER_CHOICES = (('Upcoming General Elections','Upcoming General Elections'),
 class DistrictFilterForm(forms.Form):
 
 
-	state = forms.ModelChoiceField(queryset=State.objects.all(),
+	state = forms.ModelChoiceField(queryset=State.objects.order_by(state_name),
 		to_field_name="state_name",
 		empty_label="All States",
 		required=False)
@@ -177,7 +177,7 @@ class DistrictFilterForm(forms.Form):
 
 
 class ElectionFilterForm(forms.Form):
-	state = forms.ModelChoiceField(queryset=State.objects.all(),
+	state = forms.ModelChoiceField(queryset=State.objects.order_by(state_name),
 		to_field_name="state_name",
 		empty_label="All States",
 		required=False)
@@ -200,7 +200,7 @@ class ElectionFilterForm(forms.Form):
 
 
 class CandidateFilterForm(forms.Form):
-	state = forms.ModelChoiceField(queryset=State.objects.all(),
+	state = forms.ModelChoiceField(queryset=State.objects.order_by(state_name),
 		to_field_name="state_name",
 		empty_label="All States",
 		required=False)
