@@ -4,14 +4,15 @@
 <div class="container" style="padding-top: 100px;">
   <div class="jumbotron">
       <form class="form-area" action="" method="post">
+        {% csrf_token %}
         <h2>Contact Us</h2>
-      	{% csrf_token %}
+      	
         <label >Username</label>
         {{ form.username |addcls:'required form-control' }}
         {% if form.username.errors %}
         <br/>
         <div class="alert alert-danger" role="alert">
-         {{ form.username.errors }}
+         Please make sure you are using the correct username.
         </div>
         {% endif %}
         <label >Password</label>
@@ -19,7 +20,7 @@
         {% if form.password.errors %}
         <br/>
         <div class="alert alert-danger" role="alert">
-         {{ form.password.errors }}
+         Password incorrect, please try again. 
         </div>
         {% endif %}
         <br/>
