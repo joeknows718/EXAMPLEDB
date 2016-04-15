@@ -78,7 +78,7 @@
                                 zoom: 12,
                                 markers: [
                                     {
-                                        address: "{{district.district_short}} {{district.state}}",
+                                        address: "{% for county in district.county.all %}{% if forloop.first %}{{county.county_name}}{% endif %}{% endfor %}{{district.state}}",
                                     }
                                 ],
                                 doubleclickzoom: false,

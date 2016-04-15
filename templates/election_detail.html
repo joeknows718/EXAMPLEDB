@@ -70,7 +70,7 @@
         zoom: 12,
         markers: [
             {
-                address: "{{election.district.district_short}} {{election.district.state}}",
+                address: "{% for county in district.county.all %}{% if forloop.first %}{{county.county_name}}{% endif %}{% endfor %}{{district.state}}" "{{election.district.state}}",
             }
         ],
         doubleclickzoom: false,
