@@ -196,7 +196,7 @@ class ElectionFilterForm(forms.Form):
 	no_challenger_only = forms.BooleanField(required=False)
 	includes_incumbent = forms.BooleanField(required=False)
 	does_not_include_incumbent = forms.BooleanField(required=False)
-	election_year = forms.IntegerField(min_value=2000, max_value=2100, required=False)
+	election_year = forms.ChoiceField(choices=[(x, x) for x in range(2016, 2022)])
 
 
 class CandidateFilterForm(forms.Form):
@@ -209,7 +209,7 @@ class CandidateFilterForm(forms.Form):
 		empty_label="All Districts",
 		required=False)
 
-	election_year = forms.IntegerField(min_value=2000, max_value=2100, required=False)
+	election_year = forms.ChoiceField(choices=[(x, x) for x in range(1, 32)])
 
 	order_by =  forms.ChoiceField(choices=ORDER_CHOICES, required=False)
 	percentage_aa = forms.IntegerField(min_value=0, max_value=100, required=False)
