@@ -30,6 +30,10 @@
 					num_page_links_to_display : 3,
 					items_per_page : 10,
 				});
+				$('#paging_container7').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 10,
+				});
 			});
 </script>
 
@@ -78,7 +82,7 @@
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
-				<div class="col-md-4" id="paging_container6">
+			<div class="col-md-4" id="paging_container6">
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
@@ -126,6 +130,28 @@
 			
 		</div>
 		<div class="row">
+			<div class="col-md-4" id="paging_container7">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>States with Upcoming Filing Dates</strong>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+					  {% for state in states_filing %}
+					  	<a href="{% url 'state_detail' slug=state.slug %}"class="list-group-item">
+					  		<strong>{{ state.state_name}}</strong> - 
+					  		{% for election in state.district.all|filter_date_and_sort:'next_filing_date' %}
+					  			{% if forloop.first %}
+					  				{{election.next_filing_date}}
+					  			{% endif %}
+					  		{% endfor %}
+					  	</a>
+					  {% endfor %}
+					</ul>
+					<ul class="page_navigation pagination pagination-sm"></ul>
+				</div> 
+			</div>
 			<div class="col-md-4" id="paging_container3">
 				<div class="panel-body">
 					<ul class="list-group">
