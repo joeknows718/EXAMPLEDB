@@ -73,12 +73,12 @@
 <script type="text/javascript" src="{% static 'js/jquery.gmap.js' %}"></script>
 <script type="text/javascript">
                             jQuery('#google-map').gMap({
-                                address: '{{district.district_short}} {{district.state}}',
+                                address: '"{% for county in district.counties.all %}{% if forloop.first %}{{county.county_name}}{% endif %}{% endfor %}{{district.state}}"',
                                 maptype: 'TERRAIN',
                                 zoom: 12,
                                 markers: [
                                     {
-                                        address: "{% for county in district.county.all %}{% if forloop.first %}{{county.county_name}}{% endif %}{% endfor %}{{district.state}}",
+                                        address: "{% for county in district.counties.all %}{% if forloop.first %}{{county.county_name}}{% endif %}{% endfor %}{{district.state}}",
                                     }
                                 ],
                                 doubleclickzoom: false,
