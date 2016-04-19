@@ -30,7 +30,7 @@ class UserProfile(AbstractUser):
 @receiver(pre_save, sender=UserProfile, dispatch_uid='approved')
 def approved(sender, instance, **kwargs):
 	subject = 'You account is approved!'
-	message = '%s your account is now approved. You can now, begin to use the Prosecutor DB Project' %(instance.username)
+	message = '%s your account is now approved. You can now, begin to use the Prosecutor DB Project Log In Here: http://prosecutordb.org/login' %(instance.username)
 	from_email = settings.EMAIL_HOST_USER
 	if instance.is_approved and UserProfile.objects.filter(pk=instance.pk, is_approved=False).exists():
 		send_mail(subject, message, from_email, [instance.email], fail_silently=False)
