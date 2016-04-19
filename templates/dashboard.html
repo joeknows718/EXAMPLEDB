@@ -54,11 +54,27 @@
 		</div>
 	</div>
 	<div class='container'>
-		<ul class="nav nav-pills nav-justified">
-			<li><a href="{% url 'district_reports' %}"><strong>Explore Districts</strong></a></li>
-			<li><a href="{% url 'election_reports' %}"><strong>Explore Elections</strong></a></li>
-			<li><a href="{% url 'candidate_reports' %}"><strong>Explore Candidates</strong></a></li>
-		</ul>
+		<div class="well">
+		<div class="row">
+			<div class="col-md-2">
+				<i class="fa fa-compass" aria-hidden="true" style="font-size:225px; color:#337ab7;"></i>
+			</div>	
+			<div class="col-md-9 col-md-offset-1" style="font-size:18px;">
+				<div class="panel-body">
+					<ul class="list-group">
+					  <li class="list-group-item active">
+					  	<strong>Explore the Prosecutor DB</strong>
+					  </li>
+					</ul>
+					<ul class="list-group content">
+						<a href="{% url 'district_reports' %}" class="list-group-item"><strong><i class="fa fa-search" aria-hidden="true"></i> -- Explore Districts <i class="fa fa-map-marker" aria-hidden="true"></i></strong></a>
+						<a href="{% url 'election_reports' %}" class="list-group-item"><strong><i class="fa fa-search" aria-hidden="true"></i> -- Explore Elections <i class="fa fa-check-square-o" aria-hidden="true"></i></strong></a>
+						<a href="{% url 'candidate_reports' %}" class="list-group-item"><strong><i class="fa fa-search" aria-hidden="true"></i> -- Explore Candidates <i class="fa fa-user" aria-hidden="true"></i></strong></a>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</div>
 		<br/>
 	</div>
 	<div class='container'>
