@@ -32,7 +32,7 @@
             {% else %}
             <li class="active"><a href="{% url 'dashboard' %}">Home</a></li>
             {% endif %}
-            <li><a href="{% url 'contact' %}">Report an Error</a></li>
+            <li><a href="{% url 'contact' %}">Report an Issue</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	{% if user.is_authenticated %}

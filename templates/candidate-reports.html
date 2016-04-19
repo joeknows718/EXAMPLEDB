@@ -163,7 +163,19 @@
 						<ul class="list-group content">
 						  {% for candidate in object_list %}
 						  	<a href="{% url 'candidate_detail' slug=candidate.slug %}"class="list-group-item">
-						  		<strong>{{ candidate.first_name}} {{candidate.last_name}} ({{candidate.party}})</strong>
+						  		<strong>
+						  		{% if candidate.is_incumbent == 'Yes' %}
+						  			{% if candidate.won_primary == 'Yes' %}
+						  			{{ candidate.first_name}} {{candidate.last_name}} (Incumbent)<i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i>
+						  			{% else %}
+						  			{{ candidate.first_name}} {{candidate.last_name}} (Incumbent)
+						  			{% endif %}
+						  		{% elif candidate.won_primary == 'Yes' %}
+						  			{{ candidate.first_name}} {{candidate.last_name}}<i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i>
+						  		{% else %}
+						  			{{ candidate.first_name}} {{candidate.last_name}}
+						  		{% endif %}
+						  			({{candidate.party}})</strong>
 							    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
 						  	</a>
 						  {% endfor %}

@@ -287,7 +287,7 @@ class ElectionReportGen(LoginRequiredMixin,
 			pass
 
 		election_year_param = form.cleaned_data['election_year']
-		if election_year_param != None:
+		if election_year_param != None or election_year_param != 'All Years':
 			queryset = queryset.filter(election_year=election_year_param)
 		else:
 			pass
@@ -305,12 +305,6 @@ class ElectionReportGen(LoginRequiredMixin,
 			queryset = queryset.exclude(candidate=None).filter(~Q(candidate__is_incumbent='Yes')).distinct()
 
 
-		year_param = form.cleaned_data['election_year']
-
-		if year_param == None:
-			pass
-		else:
-			queryset = queryset.filter(election__election_year=year_param)
 
 		order_param = form.cleaned_data['order_by']
 
@@ -464,12 +458,12 @@ class CandidateReportGen(LoginRequiredMixin,
 		else:
 			pass
 
-		year_param = form.cleaned_data['election_year']
+		election_year_param = form.cleaned_data['election_year']
 
-		if year_param == None:
+		if election_year_param == None or election_year_param == 'All Years':
 			pass
 		else:
-			queryset = queryset.filter(election__election_year=year_param)
+			queryset = queryset.filter(election__election_year=election_year_param)
 
 		order_param = form.cleaned_data['order_by']
 

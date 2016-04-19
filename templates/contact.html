@@ -9,7 +9,7 @@
 <div class="container" style="padding-top: 100px;">
   <div class="jumbotron">
       <form  action="" method="post">
-        <h2>Error Report</h2>
+        <h2>Report an Issue</h2>
         <p>We appreciate your help.</p>
       	{% csrf_token %}
         <div class="row">
@@ -27,20 +27,12 @@
         <div class="row">
            <div class="col-md-6">
         <label>Organization</label>
-        
           {{ form.organization |addcls:'required form-control' }}
           {{ form.organization.errors }}
         </div>
-         <div class="col-md-6">
-          <label >Issue Area</label>
-          {{ form.area |addcls:'required form-control' }}
-          {{ form.area.errors }}
         </div>
-        </div>
-        <label >Page Affected</label>
-        {{ form.page |addcls:'required form-control' }}
-        {{ form.page.errors }}
-        <label >Please describe the issue:</label>
+        <br>
+        <label >Please describe the issue. Include as much detail as possible including which district, candidate or election are affected, and any other details you think might help us understand how to improve the database.</label>
         {{ form.issue |addcls:'required form-control text' }}
         {{ form.issue.errors }}
         <label >Additional Comments</label>

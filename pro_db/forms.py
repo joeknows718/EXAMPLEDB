@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm 
 from models import UserProfile as User
 from models import District, Candidate, Election, State 
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 from django.utils.crypto import get_random_string
 
@@ -15,8 +16,8 @@ class ContactForm(forms.Form):
 	email = forms.CharField(widget=forms.EmailInput(), required=True)
 	organization = forms.CharField(required=False)
 	issue = forms.CharField(widget=forms.Textarea(), required=True)
-	page = forms.CharField(required=False)
-	area = forms.ChoiceField(choices=ISSUE_CHOICES, required=True)
+	#page = forms.CharField(required=False)
+	#area = forms.ChoiceField(choices=ISSUE_CHOICES, required=True)
 	comments = forms.CharField(widget=forms.Textarea(), required=False)
 
 	def send_message(self):
@@ -25,20 +26,18 @@ class ContactForm(forms.Form):
 		organization = self.cleaned_data['organization']
 		issue = self.cleaned_data['issue']
 		comments = self.cleaned_data['comments']
-		page = self.cleaned_data['page']
-		area = self.cleaned_data['area']
+		#page = self.cleaned_data['page']
+		#area = self.cleaned_data['area']
 		message = '''
 			New Message from {name} @ {email}
 			Organization: {organization}
-			Issue Area: {area}
-			Page: {page}
 			Issue Description: {issue}
 			Comments: {comments}
 		'''.format(name=name,
 			email=email,
 			organization=organization,
-			area=area,
-			page=page,
+			#area=area,
+			#page=page,
 			issue=issue,
 			comments=comments)
 		send_mail('NEW CONTACT FORM SUBMISSION',
@@ -196,7 +195,7 @@ class ElectionFilterForm(forms.Form):
 	no_challenger_only = forms.BooleanField(required=False)
 	includes_incumbent = forms.BooleanField(required=False)
 	does_not_include_incumbent = forms.BooleanField(required=False)
-	election_year = forms.ChoiceField(choices=[(x, x) for x in range(2016, 2023)])
+	election_year = forms.ChoiceField(choices=[(x, x) for x in range(2016, 2023)], required=False)
 
 
 class CandidateFilterForm(forms.Form):
@@ -209,7 +208,7 @@ class CandidateFilterForm(forms.Form):
 		empty_label="All Districts",
 		required=False)
 
-	election_year = forms.ChoiceField(choices=[(x, x) for x in range(2016, 2023)])
+	election_year = forms.ChoiceField(choices= [(x, x) for x in range(2016, 2023)], required=False)
 
 	order_by =  forms.ChoiceField(choices=ORDER_CHOICES, required=False)
 	percentage_aa = forms.IntegerField(min_value=0, max_value=100, required=False)

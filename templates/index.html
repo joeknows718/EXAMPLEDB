@@ -8,16 +8,25 @@
 	background-image: url('{% static "images/legalimage1.jpg"%}');
 	background-size: cover; 
 }
+.head-text{
+	margin-top: 50px;
+}
 
 </style>
 
 
 
 <div class="container-fluid banner">
-	<h1><i class="fa fa-balance-scale"></i></i>Prosecutor Database Project</h1>
-	<h4>Powered by ColorOfChange</h4>
-
-	<div class='row'>
+	<div class="row">
+		<div class="col-md-2">
+			<img src="{% static 'images/Logo_COC_Color.png' %}"/><br>
+			<small>Powered by ColorOfChange</small>
+		</div>
+		<div class="col-md-9">
+			<h1>Prosecutor Database Project</h1>
+		</div>
+	</div>
+	<div class='row head-text'>
 		<div class='col-md-8'>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

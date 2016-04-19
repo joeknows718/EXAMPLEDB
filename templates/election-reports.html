@@ -160,14 +160,22 @@
 							    <span >District: {{ election.district.district_short}} | State: {{election.state}} | Election Year: {{election.election_year}} | District General Election Date: {{election.district.general_election_date}} | Population: {{election.district.population}} | % African American: {{election.district.percent_aa}} 
 							    {% if election.candidate %}
 							    	| Candidates: 
-							     {% for candidate in election.candidate.all %}
-			    					{%if candidate.is_incumbent == 'Yes'%}
-			    						<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , 
-		    						{% else %} 
-		    							{{candidate.first_name}} {{candidate.last_name}} , 
-		    						{% endif %}
-	    						{% endfor %} 
-							   {% endif %}
+							    	{% for candidate in election.candidate.all %}
+								     	{% if not forloop.last %}
+					    					{%if candidate.is_incumbent == 'Yes'%}
+					    						<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}, 
+				    						{% else %} 
+				    							{{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %},
+				    						{% endif %}
+			    						{% else %}
+				    						{%if candidate.is_incumbent == 'Yes' %}
+					    						<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} {% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}
+				    						{% else %} 
+				    							{{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}
+				    						{% endif %}
+			    						{% endif %}
+	    							{% endfor %} 
+							  {% endif %}
 						  	</a>
 						  {% endfor %}
 						</ul>
