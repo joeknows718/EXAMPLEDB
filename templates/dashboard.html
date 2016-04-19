@@ -55,9 +55,9 @@
 	</div>
 	<div class='container'>
 		<ul class="nav nav-pills nav-justified">
-			<li><a href="{% url 'district_reports' %}"><strong>District Report Generator</strong></a></li>
-			<li><a href="{% url 'election_reports' %}"><strong>Election Report Generator</strong></a></li>
-			<li><a href="{% url 'candidate_reports' %}"><strong>Candidate Report Generator</strong></a></li>
+			<li><a href="{% url 'district_reports' %}"><strong>Explore Districts</strong></a></li>
+			<li><a href="{% url 'election_reports' %}"><strong>Explore Elections</strong></a></li>
+			<li><a href="{% url 'candidate_reports' %}"><strong>Explore Candidates</strong></a></li>
 		</ul>
 		<br/>
 	</div>
@@ -67,8 +67,7 @@
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>Districts with upcoming Elections</strong>
-					    <span class="badge">Results</span>
+					  	<strong>Upcoming Elections by District</strong>
 					  </li>
 					</ul>
 					<ul class="list-group content">
@@ -86,7 +85,7 @@
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>States with Upcoming Primary Elections</strong>
+					  	<strong>Upcoming Primaries</strong>
 					  </li>
 					</ul>
 					<ul class="list-group content">
@@ -108,7 +107,7 @@
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>States with Upcoming General Elections</strong>
+					  	<strong>Upcoming Generals</strong>
 					  </li>
 					</ul>
 					<ul class="list-group content">
@@ -134,7 +133,7 @@
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>States with Upcoming Filing Dates</strong>
+					  	<strong>Upcoming Filing Dates</strong>
 					  </li>
 					</ul>
 					<ul class="list-group content">
@@ -157,7 +156,6 @@
 					<ul class="list-group">
 					  <li class="list-group-item active">
 					  	<strong>Upcoming Elections</strong>
-					    <span class="badge">Results</span>
 					  </li>
 					</ul>
 					<ul class="list-group content">
@@ -165,7 +163,7 @@
 					  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
 					  		<strong>{{election.election_name}}</strong>
 						    <span >Election Year: {{election.election_year}} State: {{election.state}} | General Election Date: {{election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}} | Candidates:  {% for candidate in election.candidate.all %}
-							    					{%if candidate.is_incumbent == 'Yes'%}<strong>Incubment:</strong> {{candidate.first_name}} {{candidate.last_name}} , {% else %} {{candidate.first_name}} {{candidate.last_name}} , {% endif %}{% endfor %} </span>
+							    					{%if candidate.is_incumbent == 'Yes'%}<strong>Incumbent:</strong> {{candidate.first_name}} {{candidate.last_name}} {% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}, {% else %} {{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %} , {% endif %}{% endfor %} </span>
 					  	</a>
 					  {% endfor %}
 					</ul>
@@ -176,8 +174,7 @@
 				<div class="panel-body">
 					<ul class="list-group">
 					  <li class="list-group-item active">
-					  	<strong>Districts with the largest % African American population</strong>
-					    <span class="badge">Results</span>
+					  	<strong>African-American Districts</strong>
 					  </li>
 					</ul>
 					<ul class="list-group content">

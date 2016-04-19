@@ -14,5 +14,5 @@ def sort_by(queryset, order):
 
 @register.filter
 def filter_date_and_sort(queryset, order):
-	return queryset.filter(general_election_date__gt=date.today()).order_by(order)
+	return queryset.filter(general_election_date__gt=date.today()).order_by('state__state_name',order).distinct()
 
