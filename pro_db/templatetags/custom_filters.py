@@ -13,6 +13,16 @@ def sort_by(queryset, order):
     return queryset.order_by(order)
 
 @register.filter
-def filter_date_and_sort(queryset, order):
-	return queryset.filter(general_election_date__gt=date.today()).order_by('state__state_name',order).distinct()
+def filter_date_and_sort_general(queryset, order):
+	return queryset.filter(general_election_date__gte=date.today()).order_by('state__state_name',order).distinct()
 
+
+@register.filter
+def filter_date_and_sort_primary(queryset, order):
+	return queryset.filter(primary_election_date__gte=date.today()).order_by('state__state_name',order).distinct()
+
+
+
+@register.filter
+def filter_date_and_sort_filing(queryset, order):
+	return queryset.filter(next_filing_date__gte=date.today()).order_by('state__state_name',order).distinct()

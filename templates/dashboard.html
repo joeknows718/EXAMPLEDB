@@ -80,24 +80,6 @@
 	</div>
 	<div class='container'>
 		<div class='row'>
-			<div class="col-md-4" id="paging_container1">
-				<div class="panel-body">
-					<ul class="list-group">
-					  <li class="list-group-item active">
-					  	<strong>Upcoming Elections by District</strong>
-					  </li>
-					</ul>
-					<ul class="list-group content">
-					  {% for district in districts_upcoming %}
-					  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
-					  		<strong>{{district.district_id}}</strong>
-						    <span >State: {{district.state}} | District General Election Date: {{district.general_election_date}} | Population: {{district.population|intcomma}} | % African American: {{district.percent_aa}}</span>
-					  	</a>
-					  {% endfor %}
-					</ul>
-					<ul class="page_navigation pagination pagination-sm"></ul>
-				</div> 
-			</div>
 			<div class="col-md-4" id="paging_container6">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -109,7 +91,7 @@
 					  {% for state in states_upcoming_primary %}
 					  	<a href="{% url 'state_detail' slug=state.slug %}"class="list-group-item">
 					  		<strong>{{ state.state_name}}</strong> - 
-					  		{% for election in state.district.all|filter_date_and_sort:'primary_election_date' %}
+					  		{% for election in state.district.all|filter_date_and_sort_primary:'primary_election_date' %}
 					  			{% if forloop.first %}
 					  				{{election.primary_election_date}}
 					  			{% endif %}
@@ -131,7 +113,7 @@
 					  {% for state in states_upcoming_general %}
 					  	<a href="{% url 'state_detail' slug=state.slug %}"class="list-group-item">
 					  		<strong>{{ state.state_name}}</strong> - 
-					  		{% for election in state.district.all|filter_date_and_sort:'general_election_date' %}
+					  		{% for election in state.district.all|filter_date_and_sort_general:'general_election_date' %}
 					  			{% if forloop.first %}
 					  				{{election.general_election_date}}
 					  			{% endif %}
@@ -142,10 +124,6 @@
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
-		
-			
-		</div>
-		<div class="row">
 			<div class="col-md-4" id="paging_container7">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -157,7 +135,7 @@
 					  {% for state in states_filing %}
 					  	<a href="{% url 'state_detail' slug=state.slug %}"class="list-group-item">
 					  		<strong>{{ state.state_name}}</strong> - 
-					  		{% for election in state.district.all|filter_date_and_sort:'next_filing_date' %}
+					  		{% for election in state.district.all|filter_date_and_sort_filing:'next_filing_date' %}
 					  			{% if forloop.first %}
 					  				{{election.next_filing_date}}
 					  			{% endif %}
@@ -168,6 +146,10 @@
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
+			
+		</div>
+		<div class="row">
+			
 			<div class="col-md-4" id="paging_container3">
 				<div class="panel-body">
 					<ul class="list-group">
@@ -199,7 +181,9 @@
 	    							{% endfor %} 
 							  {% endif %}
 							 {% endfor %}
+							</a>
 					</ul>
+					
 					<ul class="page_navigation pagination pagination-sm"></ul>
 				</div> 
 			</div>
