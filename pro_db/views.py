@@ -199,7 +199,7 @@ class ElectionReportGen(LoginRequiredMixin,
 						MultipleObjectMixin,
 						TemplateResponseMixin,
 						View):
-	queryset = Election.objects.filter(district__general_election_date__gte=date.today())
+	queryset = Election.objects.filter(district__general_election_date__gte=date.today()).filter(election_year__gte=date.today().year)
 	form_class = ElectionFilterForm
 	template_name = 'election-reports.html'
 

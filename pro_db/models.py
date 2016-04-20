@@ -71,6 +71,9 @@ class District(models.Model):
 		self.slug = slugify(self.district_id)
 		super(District, self).save(*args, **kwargs)
 
+	class Meta:
+		ordering = ['district_id']
+
 	def __unicode__(self):
 		return self.district_id
 
@@ -90,7 +93,8 @@ class Election(models.Model):
 			super(Election, self).save(*args, **kwargs)
 
 
-
+	class Meta:
+		ordering = ['election_name']
 
 	def __unicode__(self):
 		return self.election_name
