@@ -42,7 +42,8 @@ INSTALLED_APPS = (
     'pro_db',
     'import_export',
     'braces',
-    'storages', 
+    'storages',
+    'django.contrib.humanize', 
 )
 
 MIDDLEWARE_CLASSES = (

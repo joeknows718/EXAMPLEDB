@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 
 <div class='container' style="padding-top: 100px;">
@@ -10,7 +11,7 @@
 				<h3>District Profile</h3>
 				<br/>
 				<ul class="list-group">
-				  <li class="list-group-item"><strong>Population:</strong> {{district.population}}</li>
+				  <li class="list-group-item"><strong>Population:</strong> {{district.population|intcomma}}</li>
 				  <li class="list-group-item"><strong>African American:</strong> {{district.percent_aa}} %</li>
 				  <li class="list-group-item"><strong>Latino:</strong> {{district.percent_latino}} %</li>
 				  <li class="list-group-item"><strong>Obama Vote Share (2012):</strong> {{district.percent_obama}} %</li>

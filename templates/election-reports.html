@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <script type="text/javascript" src="{% static 'js/jquery.pajinate.js' %}"></script>
 <script type="text/javascript">
@@ -157,7 +158,7 @@
 						  {% for election in object_list %}
 						  	<a href="{% url 'election_detail' slug=election.slug %}"class="list-group-item">
 						  		<strong>{{ election.election_name}}</strong>
-							    <span >District: {{ election.district.district_short}} | State: {{election.state}} | Election Year: {{election.election_year}} | District General Election Date: {{election.district.general_election_date}} | Population: {{election.district.population}} | % African American: {{election.district.percent_aa}} 
+							    <span >District: {{ election.district.district_short}} | State: {{election.state}} | Election Year: {{election.election_year}} | District General Election Date: {{election.district.general_election_date}} | Population: {{election.district.population|intcomma}} | % African American: {{election.district.percent_aa}} 
 							    {% if election.candidate %}
 							    	| Candidates: 
 							    	{% for candidate in election.candidate.all %}

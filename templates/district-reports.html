@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <script type="text/javascript" src="{% static 'js/jquery.pajinate.js' %}"></script>
 <script type="text/javascript">
@@ -91,7 +92,7 @@
 						<ul class="list-group content">
 						  {% for district in object_list %}
 						  	<a href="{% url 'district_detail' slug=district.slug %}"class="list-group-item">
-							    <span class="badge">General Election Date: {{district.general_election_date}} | Population: {{district.population}} | % African American: {{district.percent_aa}} | % Latino: {{district.percent_latino}}</span>
+							    <span class="badge">General Election Date: {{district.general_election_date}} | Population: {{district.population|intcomma}} | % African American: {{district.percent_aa}} | % Latino: {{district.percent_latino}}</span>
 							    <strong>{{ district.district_id}}</strong>
 						  	</a>
 						  {% endfor %}

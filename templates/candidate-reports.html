@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <script type="text/javascript" src="{% static 'js/jquery.pajinate.js' %}"></script>
 <script type="text/javascript">
@@ -176,7 +177,7 @@
 						  			{{ candidate.first_name}} {{candidate.last_name}}
 						  		{% endif %}
 						  			({{candidate.party}})</strong>
-							    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population}} | % African American: {{candidate.election.district.percent_aa}}</span>
+							    <span >District: {{ candidate.election.district.district_short}} | State: {{candidate.election.state}} | Election Year: {{candidate.election.election_year}} | District General Election Date: {{candidate.election.district.general_election_date}} | Population: {{candidate.election.district.population|intcomma}} | % African American: {{candidate.election.district.percent_aa}}</span>
 						  	</a>
 						  {% endfor %}
 						</ul>
