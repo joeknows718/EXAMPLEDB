@@ -134,12 +134,12 @@ class PasswordRecoveryForm(forms.Form):
 		user.save()
 
 		body = """
- Sorry you are having issues with your account. Below is your username and
+ Sorry you are having issues with your Prosecutor DB account. Below is your username and
  new password:
  Username: {username}
  Password: {password}
- You can login here: http://url.com/login/
- Change your password here: http://url.com/settings/
+ You can login here: http://prosecutordb/login/
+ Change your password here: http://prosecutordb/settings/
  """.format(username=user.username, password=password)
 		send_mail(
 			'[NameOfApp] Password Reset', body, 'prosecutordb@colorofchange.org',
