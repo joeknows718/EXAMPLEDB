@@ -43,7 +43,7 @@ class ContactForm(forms.Form):
 		send_mail('NEW CONTACT FORM SUBMISSION',
 			message,
 			'prosecutordb@colorofchange.org',
-			['prosecutordb@colorofchange.org', 'joe.carrano@colorofchange.org'])
+			['prosecutordbgroup@colorofchange.org'])
 
 
 
@@ -99,7 +99,7 @@ class RegisterForm(UserCreationForm):
 		send_mail('New user registration NEED REVIEW',
 			body,
 			'prosecutordb@colorofchange.org',
-			['prosecutordb@colorofchange.org', 'joe.carrano@colorofchange.org'])
+			['prosecutordbgroup@colorofchange.org'])
 
 	def notify_user(self):
 		first_name = self.cleaned_data['first_name']
