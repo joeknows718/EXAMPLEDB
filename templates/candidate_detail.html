@@ -15,7 +15,7 @@
 					{% endif %}
 					<li class="list-group-item"><strong>Party:</strong> {{candidate.party}}</li>
 					{% if candidate.is_incumbent %}
-					<li class="list-group-item"><strong>Title:</strong> {{candidate.election.district.job_title}}</li>
+					<li class="list-group-item"><strong>Title Sought:</strong> {{candidate.election.district.job_title}}</li>
 					{% endif %}
 					{% if candidate.is_incumbent == 'Yes' %}
 					<a href="{% url 'district_detail' slug=candidate.election.district.slug %}" class="list-group-item"><strong>Current Position:</strong> Incumbent {{candidate.election.district.job_title}} {{candidate.election.district.district_short}} {{candidate.election.state.state_name}}</a>
