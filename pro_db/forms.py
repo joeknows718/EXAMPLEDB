@@ -151,7 +151,7 @@ class PasswordRecoveryForm(forms.Form):
  Change your password here: http://prosecutordb/settings/
  """.format(username=user.username, password=password)
 		send_mail(
-			'[NameOfApp] Password Reset', body, 'prosecutordb@colorofchange.org',
+			'[Prosecutor DB] Password Reset', body, 'prosecutordb@colorofchange.org',
 			[user.email])
 
 

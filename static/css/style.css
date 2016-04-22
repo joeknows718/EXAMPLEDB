@@ -72,6 +72,7 @@ a:hover{
 }
 .page_navigation a{
 	padding:10px;
+	color:#337ab7;
 	border:1px solid #337ab7;
 	border-radius: 5px;
 	margin: 5px;
