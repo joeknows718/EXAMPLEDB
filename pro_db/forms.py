@@ -63,7 +63,7 @@ class RegisterForm(UserCreationForm):
 		email = self.cleaned_data.get('email')
 		username = self.cleaned_data.get('username')
 		if email and User.objects.filter(email=email).exclude(username=username).count():
-			raise forms.ValidationError(u'Email addresses must be unique.')
+			raise forms.ValidationError(u'There is already an account registered with this email account. If you have forgotten your password please visit http://www.prosecutordb.org/recover-password/. If you have received this message in error please contact prosecutordb@colorofchange.org')
 		return email
 
 	def save(self, commit=True):
