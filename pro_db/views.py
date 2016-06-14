@@ -381,7 +381,12 @@ class CandidateReportGen(LoginRequiredMixin,
 			pass
 		else:
 			queryset = queryset.filter(election__state__state_name=state_param)
-
+		
+		gender_param = form.cleaned_data['gender']
+		if gender_param is None or gender_param < 1:
+			pass
+		else:
+			queryset = queryset.filter(gender=str(gender_param))
 
 		race_param = form.cleaned_data['race']
 		if race_param is None or race_param < 1:
@@ -389,11 +394,7 @@ class CandidateReportGen(LoginRequiredMixin,
 		else:
 			queryset = queryset.filter(race=str(race_param))
 
-		gender_param = form.cleaned_data['gender']
-		if gender_param is None or gender_param < 1:
-			pass
-		else:
-			queryset = queryset.filter(gender=str(gender_param))
+		
 
 		party_param = form.cleaned_data['party']
 		if party_param is None or party_param == "All Parties":
@@ -517,7 +518,10 @@ class CandidateReportGen(LoginRequiredMixin,
 										is_incumbent_param=is_incumbent_param,
 										no_incumbent_param=no_incumbent_param,
 										opposed_param=opposed_param,
-										unopposed_param=unopposed_param)
+										unopposed_param=unopposed_param,
+										gender_param=gender_param,
+										race_param=race_param,
+										party_param=party_param)
 
 		return self.render_to_response(context)
 
