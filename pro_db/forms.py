@@ -11,7 +11,7 @@ ISSUE_CHOICES = (('District', 'District'),
 				('Elections', 'Elections'),
 				('Candidates', 'Candidates'))
 
-GENDER_CHOICES = ((None,'----_)'),
+GENDER_CHOICES = ((None,'-----'),
 				('M', 'Male'),
 				('F', 'Female'),
 				('Not Sure', 'Not Sure'))
