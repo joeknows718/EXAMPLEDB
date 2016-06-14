@@ -519,9 +519,10 @@ class CandidateReportGen(LoginRequiredMixin,
 										no_incumbent_param=no_incumbent_param,
 										opposed_param=opposed_param,
 										unopposed_param=unopposed_param,
-										gender_param=gender#_param,
-										race_param=race_param,
-										party_param=party_param)
+										#gender_param=gender_param,
+										#race_param=race_param,
+										#party_param=party_param
+										)
 
 		return self.render_to_response(context)
 
