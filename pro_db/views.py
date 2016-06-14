@@ -382,11 +382,11 @@ class CandidateReportGen(LoginRequiredMixin,
 		else:
 			queryset = queryset.filter(election__state__state_name=state_param)
 
-		#gender_param = form.cleaned_data['gender']
-		#if gender_param is None or gender_param < 1:
-		#	pass
-		#else:
-		#	queryset = queryset.filter(gender=str(gender_param))
+		gender_param = form.cleaned_data['gender']
+		if gender_param is None or gender_param < 1:
+			pass
+		else:
+			queryset = queryset.filter(gender=str(gender_param))
 
 		#race_param = form.cleaned_data['race']
 		#if race_param is None or race_param < 1:
