@@ -102,7 +102,8 @@ class RegisterForm(UserCreationForm):
 		First Name: {first_name}
 		Last Name: {last_name}
 		Email: {email}
-		Organization: {organization}""".format(username=username,
+		Organization: {organization}
+		Approve here: http://www.prosecutordb.org/admin/pro_db/userprofile/ """.format(username=username,
 			first_name=first_name,
 			last_name=last_name,
 			email=email,
