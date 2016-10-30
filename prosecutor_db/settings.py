@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%=nya(@*i6)t-*npa_0-p65hkh9(_w=a9(#+i12^(jt^wb8jek'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'prosecutordb.org', 'www.prosecutordb.org', 'damp-coast-71548.herokuapp.com']
 
@@ -84,15 +84,15 @@ WSGI_APPLICATION = 'prosecutor_db.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 
-#DATABASES = {'default': dj_database_url.config(default='postgres:///pro_db')}
-#DATABASES['default']['ENGINE'] = 'django_postgrespool'
+DATABASES = {'default': dj_database_url.config(default='postgres:///pro_db')}
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
+#}
 
 
 # Internationalization
