@@ -15,6 +15,7 @@ class UserProfileAdmin(UserAdmin):
 	fieldsets = UserAdmin.fieldsets + (
             (None, {'fields': ('is_approved', 'organization')}),
     )
+	list_display = ('username', 'email', 'organization', 'is_staff', 'is_active', 'is_approved')
 
 
 class DistrictResource(resources.ModelResource):

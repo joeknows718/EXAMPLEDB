@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%=nya(@*i6)t-*npa_0-p65hkh9(_w=a9(#+i12^(jt^wb8jek'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'prosecutordb.org', 'www.prosecutordb.org', 'damp-coast-71548.herokuapp.com']
 
 LOGIN_URL = '/login'
 # Application definition

@@ -2,7 +2,7 @@ from django import forms
 from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm 
 from models import UserProfile as User
-from models import District, Candidate, Election, State 
+from models import District, Candidate, Election, State, Party
 from django.db.models.fields import BLANK_CHOICE_DASH
 
 from django.utils.crypto import get_random_string
@@ -10,6 +10,17 @@ from django.utils.crypto import get_random_string
 ISSUE_CHOICES = (('District', 'District'),
 				('Elections', 'Elections'),
 				('Candidates', 'Candidates'))
+
+GENDER_CHOICES = ((None,'-----'),
+				('M', 'Male'),
+				('F', 'Female'),
+				('Not Sure', 'Not Sure'))
+
+RACE_CHOICES = ((None, '-----'), 
+				('C', 'Caucasian'),
+				('AA', 'African American'),
+				('A', 'Asian'),
+				('H', 'Latino'))
 
 class ContactForm(forms.Form):
 	name = forms.CharField(required=True)
@@ -91,7 +102,8 @@ class RegisterForm(UserCreationForm):
 		First Name: {first_name}
 		Last Name: {last_name}
 		Email: {email}
-		Organization: {organization}""".format(username=username,
+		Organization: {organization}
+		Approve here: http://www.prosecutordb.org/admin/pro_db/userprofile/ """.format(username=username,
 			first_name=first_name,
 			last_name=last_name,
 			email=email,
@@ -216,6 +228,14 @@ class CandidateFilterForm(forms.Form):
 	district = forms.ModelChoiceField(queryset=District.objects.all(),
 		empty_label="All Districts",
 		required=False)
+
+	party = forms.ModelChoiceField(queryset=Party.objects.all(),
+		to_field_name = "party_name",
+		empty_label = "All Parties",
+		required=False)
+
+	race =  forms.ChoiceField(choices=RACE_CHOICES, required=False)
+	gender =  forms.ChoiceField(choices=GENDER_CHOICES, required=False)
 
 	election_year = forms.ChoiceField(choices= [(x, x) for x in range(2016, 2023)], required=False)
 

@@ -5164,7 +5164,7 @@ a.list-group-item .list-group-item-heading {
 a.list-group-item:hover,
 a.list-group-item:focus {
   color: #555;
-  text-decoration: none;
+  text-decoration: underline;
   background-color: #f5f5f5;
 }
 .list-group-item.disabled,

@@ -38,6 +38,39 @@
 					 {{ form.district.errors }}
 					</div>
 					{% endif %}
+
+					
+					<label >Filter by gender:</label>
+					{{ form.gender |addcls:'required form-control' }}
+					{% if form.gender.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.gender.errors }}
+					</div>
+					{% endif %}
+			
+					<label >Filter by race:</label>
+					{{ form.race |addcls:'required form-control' }}
+					{% if form.race.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.race.errors }}
+					</div>
+					{% endif %}
+
+
+					<label >Filter by Party:</label>
+					{{ form.party |addcls:'required form-control' }}
+					{% if form.party.errors %}
+					<br/>
+					<div class="alert alert-danger" role="alert">
+					 {{ form.party.errors }}
+					</div>
+					{% endif %}
+
+
+
+
 					<label >Filter by districts with populations greater than:</label>
 					{{ form.pop_gt |addcls:'required form-control' }}
 					{% if form.pop_gt.errors %}
