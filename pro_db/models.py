@@ -122,6 +122,7 @@ class Candidate(models.Model):
 	percent_vote = models.IntegerField(blank=True, null=True)
 	notes = models.TextField(blank=True)
 	slug = models.SlugField(blank=True, null=True)
+	won_election = models.CharField(blank=True, choices=BOOL_CHOICES, max_length=100, null=True)
 
 	def save(self, *args, **kwargs):
 		slug_str = "%s %s" % (self.first_name, self.last_name)

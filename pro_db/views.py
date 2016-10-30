@@ -22,6 +22,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.http import is_safe_url
+from django.contrib.auth import update_session_auth_hash
 # Create your views here.
 
 #|------------------------Landing / Customer Service  Pages------------------------------------------|
