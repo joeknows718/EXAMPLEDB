@@ -199,12 +199,12 @@
 						  		<strong>
 						  		{% if candidate.is_incumbent == 'Yes' %}
 						  			{% if candidate.won_primary == 'Yes' %}
-						  			{{ candidate.first_name}} {{candidate.last_name}} (Incumbent)<i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i>{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% endif }
+						  			{{ candidate.first_name}} {{candidate.last_name}} (Incumbent)<i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i>{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% endif %}
 						  			{% else %}
 						  			{{ candidate.first_name}} {{candidate.last_name}} (Incumbent)
 						  			{% endif %}
 						  		{% elif candidate.won_primary == 'Yes' %}
-						  			{{ candidate.first_name}} {{candidate.last_name}}<i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i>{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% endif }
+						  			{{ candidate.first_name}} {{candidate.last_name}}<i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i>{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% endif %}
 						  		{% else %}
 						  			{{ candidate.first_name}} {{candidate.last_name}}
 						  		{% endif %}
