@@ -163,7 +163,7 @@
 							    	{% for candidate in election.candidate.all %}
 								     	{% if not forloop.last %}
 					    					{%if candidate.is_incumbent == 'Yes'%}
-					    						<strong>Incumbent:</strong> {{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% elif candidate.won_election== 'No' %}<i class="fa fa-times" aria-hidden="true" style="color:#B20000;"></i>{% endif %}, 
+					    						<strong>Incumbent:</strong> {{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% elif candidate.won_election == 'No' %}<i class="fa fa-times" aria-hidden="true" style="color:#B20000;"></i>{% endif %}, 
 				    						{% else %} 
 				    							{{candidate.first_name}} {{candidate.last_name}}{% if candidate.won_primary == 'Yes' %} <i class="fa fa-check" aria-hidden="true" style="color:#00b0a2;"></i> {% endif %}{% if candidate.won_election == 'Yes' %}<i class="fa fa-check" aria-hidden="true" style="color:#0000B2;"></i>{% elif candidate.won_election == 'No' %}<i class="fa fa-times" aria-hidden="true" style="color:#B20000;"></i>{% endif %},
 				    						{% endif %}
