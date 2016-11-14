@@ -248,6 +248,7 @@ class CandidateFilterForm(forms.Form):
 	is_incumbent = forms.BooleanField(required=False)
 	not_incumbent = forms.BooleanField(required=False)
 	won_primary = forms.BooleanField(required=False)
+	won_election = forms.BooleanField(required=False)
 	opposed_only = forms.BooleanField(required=False)
 	unopposed_only = forms.BooleanField(required=False)
 

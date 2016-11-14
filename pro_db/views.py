@@ -460,6 +460,13 @@ class CandidateReportGen(LoginRequiredMixin,
 		else:
 			pass
 
+		won_election_param = form.cleaned_data['won_election']
+
+		if won_primary_param == True:
+			queryset = queryset.filter(won_election='Yes')
+		else:
+			pass
+
 		no_incumbent_param = form.cleaned_data['not_incumbent']
 
 		if no_incumbent_param == True:
@@ -522,7 +529,9 @@ class CandidateReportGen(LoginRequiredMixin,
 										unopposed_param=unopposed_param,
 										gender_param=gender_param,
 										race_param=race_param,
-										party_param=party_param
+										party_param=party_param,
+										won_election_param=won_election_param,
+										won_primary_param=won_primary_param
 										)
 
 		return self.render_to_response(context)
