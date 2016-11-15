@@ -88,7 +88,8 @@ class DistrictReportGen(LoginRequiredMixin,
 						TemplateResponseMixin, 
 						View):
 
-	queryset = District.objects.filter(general_election_date__gt=date.today())
+	#queryset = District.objects.filter(general_election_date__gt=date.today()) # removed past election filter
+	queryset = District.objects.all()
 	form_class = DistrictFilterForm
 	template_name = 'district-reports.html'
 
@@ -200,7 +201,9 @@ class ElectionReportGen(LoginRequiredMixin,
 						MultipleObjectMixin,
 						TemplateResponseMixin,
 						View):
-	queryset = Election.objects.filter(district__general_election_date__gte=date.today()).filter(election_year__gte=date.today().year)
+	#queryset = Election.objects.filter(district__general_election_date__gte=date.today()).filter(election_year__gte=date.today().year)
+	#removed past election filter
+	queryset = Election.objects.all()
 	form_class = ElectionFilterForm
 	template_name = 'election-reports.html'
 
@@ -351,7 +354,9 @@ class CandidateReportGen(LoginRequiredMixin,
 						TemplateResponseMixin,
 						View):
 
-	queryset = Candidate.objects.filter(election__district__general_election_date__gt=date.today())
+	#queryset = Candidate.objects.filter(election__district__general_election_date__gt=date.today())
+	#remove past campaign filter
+	queryset = Candidate.objects.all()
 	form_class = CandidateFilterForm
 	template_name = 'candidate-reports.html'
 
