@@ -165,9 +165,9 @@ class DistrictReportGen(LoginRequiredMixin,
 		order_param = form.cleaned_data['order_by']
 
 		if order_param == None or order_param == 'Newest General Elections':
-			queryset = queryset.order_by('general_election_date')
-		elif order_param == 'Oldest General Elections':
-			queryset = queryset.order_param('-general_election_date')
+			queryset = queryset.order_by('-general_election_date')
+		elif order_by == 'Oldest General Elections':
+			queryset = queryset.order_param('general_election_date')
 		elif order_param == 'Upcoming General Elections':
 			queryset = queryset.filter(general_election_date__gt=date.today()).order_by('general_election_date')
 		elif order_param == 'Upcoming Primary Dates':
@@ -317,9 +317,9 @@ class ElectionReportGen(LoginRequiredMixin,
 		order_param = form.cleaned_data['order_by']
 
 		if order_param == None or order_param == 'Newest General Elections':
-			queryset = queryset.order_by('general_election_date')
+			queryset = queryset.order_by('-general_election_date')
 		elif order_param == 'Oldest General Elections':
-			queryset = queryset.order_param('-general_election_date')
+			queryset = queryset.order_by('general_election_date')
 		elif order_param == 'Upcoming General Elections':
 			queryset = queryset.filter(district__general_election_date__gt=date.today()).order_by('district__general_election_date')
 		elif order_param == 'Upcoming Primary Dates':
@@ -509,9 +509,9 @@ class CandidateReportGen(LoginRequiredMixin,
 		order_param = form.cleaned_data['order_by']
 
 		if order_param == None or order_param == 'Newest General Elections':
-			queryset = queryset.order_by('general_election_date')
+			queryset = queryset.order_by('-general_election_date')
 		elif order_param == 'Oldest General Elections':
-			queryset = queryset.order_param('-general_election_date')
+			queryset = queryset.order_by('general_election_date')
 		elif order_param == 'Upcoming General Elections':
 			queryset = queryset.filter(election__district__general_election_date__gt=date.today()).order_by('election__district__general_election_date')
 		elif order_param == 'Upcoming Primary Dates':
