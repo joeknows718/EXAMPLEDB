@@ -170,7 +170,9 @@ class PasswordRecoveryForm(forms.Form):
 
 
 
-ORDER_CHOICES = (('Upcoming General Elections','Upcoming General Elections'),
+ORDER_CHOICES = (('Newest General Elections','Newest General Elections'),
+						('Oldest General Elections','Oldest General Elections'),
+						('Upcoming General Elections','Upcoming General Elections'),
 						('Upcoming Primary Dates','Upcoming Primary Dates'),
 						('Upcoming Filing Dates','Upcoming Filing Dates'),
 						('Population size (High to Low)','Population size (High to Low)'),
