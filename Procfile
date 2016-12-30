@@ -1,2 +1,1 @@
-web: gunicorn prosecutor_db.wsgi --log-file -
-worker: python worker.py
+web: gunicorn prosecutor_db.wsgi
